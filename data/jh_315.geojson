@@ -1,8 +1,1 @@
-{
-"type": "FeatureCollection",
-"name": "merged",
-"features": [
-{ "type": "Feature", "properties": { "Name": "JH 315 — Jugendherberge Papenburg", "description": "<b>JH Nr:</b> 315<br><b>Name:</b> Jugendherberge Papenburg<br><b>Ort:</b> Papenburg", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 7.4416392, 53.0733771 ] } },
-{ "type": "Feature", "properties": { "Name": "Volkshochschule Papenburg", "description": "<b>Kategorie:<\/b> Bildungsinfrastruktur — Hochschule<br><b>Distanz:<\/b> 1816 m<br><b>Website:<\/b> <br><b>Telefon:<\/b> ", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 7.463372, 53.0831382 ] } }
-]
-}
+{"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"Name": "JH 315 — Jugendherberge Papenburg", "description": "<b>JH Nr:</b> 315<br><b>Name:</b> Jugendherberge Papenburg<br><b>Ort:</b> Papenburg", "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null, "category_group": "JH"}, "geometry": {"type": "Point", "coordinates": [7.4416392, 53.0733771]}}, {"type": "Feature", "properties": {"Name": "Volkshochschule Papenburg", "description": "<b>Kategorie:</b> Bildungsinfrastruktur — Hochschule<br><b>Distanz:</b> 1816 m<br><b>Website:</b> <br><b>Telefon:</b> ", "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null, "category_group": "Bildungsinfrastruktur"}, "geometry": {"type": "Point", "coordinates": [7.463372, 53.0831382]}}]}
