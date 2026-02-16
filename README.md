@@ -1,7 +1,3 @@
-Hier ist ein **elternfreundliches README** für dein Repository – verständlich, klar, ohne Technik-Overkill.
-
----
-
 # 🏕️ DJH-Karte – Jugendherbergen & Umgebung
 
 Diese kleine Web-App zeigt alle Jugendherbergen auf einer interaktiven Karte.
@@ -88,13 +84,3 @@ mobile-jh/
 
 Die Karte soll Familien helfen, Aufenthalte bei Jugendherbergen besser zu planen – mit einem schnellen Überblick über Bildungs-, Natur- und Freizeitangebote in der Nähe.
 
----
-
-Wenn du möchtest, kann ich dir zusätzlich noch eine zweite README-Version schreiben:
-
-* 🔬 technisch-detailliert
-* 🏫 schulorientiert
-* 📊 wissenschaftlich dokumentierend
-* 🏢 organisationsneutral formuliert
-
-Sag einfach welche Zielgruppe.
