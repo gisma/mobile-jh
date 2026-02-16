@@ -7,10 +7,9 @@ FORCE=0
 # Argument Parsing
 # ------------------------------
 for arg in "$@"; do
-  case $arg in
+  case "$arg" in
     --force)
       FORCE=1
-      shift
       ;;
     *)
       echo "Unknown option: $arg"
@@ -73,9 +72,8 @@ echo "STEP 1/4: R → KMZ"
 echo "----------------------------------------"
 Rscript "${REPO_ROOT}/tools/batch-jh-export.r"
 
-# Optional: Check expected outputs exist
 if ! compgen -G "${EXPORT_DIR}/*.kmz" > /dev/null; then
-  echo "ERROR: No KMZ files generated."
+  echo "ERROR: No KMZ files generated in ${EXPORT_DIR}"
   exit 1
 fi
 
@@ -91,13 +89,12 @@ bash "${REPO_ROOT}/tools/convert_to_geojson.sh"
 # STEP 3
 # ------------------------------
 echo
-echo "STEP 3/4: KMZ → GeoJSON (main_convert_to_geojson.sh)"
+echo "STEP 3/4: KMZ → GeoJSON (main_convert_to_geojson.py)"
 echo "----------------------------------------"
-bash "${REPO_ROOT}/tools/main_convert_to_geojson.sh"
+python3 "${REPO_ROOT}/tools/main_convert_to_geojson.py"
 
-# Verify GeoJSON created
 if ! compgen -G "${GEOJSON_DIR}/*.geojson" > /dev/null; then
-  echo "ERROR: No GeoJSON files generated."
+  echo "ERROR: No GeoJSON files generated in ${GEOJSON_DIR}"
   exit 1
 fi
 
@@ -112,7 +109,7 @@ check_overwrite "$MANIFEST_FILE"
 python3 "${REPO_ROOT}/tools/build_manifest.py"
 
 if [[ ! -f "$MANIFEST_FILE" ]]; then
-  echo "ERROR: Manifest not created."
+  echo "ERROR: Manifest not created: ${MANIFEST_FILE}"
   exit 1
 fi
 
