@@ -20,7 +20,7 @@
       border-radius: 10px;
       box-shadow: 0 3px 18px rgba(0,0,0,0.2);
       padding: 10px 12px;
-      max-width: 340px;
+      max-width: 360px;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       font-size: 14px;
       line-height: 1.25;
@@ -54,7 +54,7 @@
       border-radius: 10px;
       box-shadow: 0 3px 18px rgba(0,0,0,0.2);
       padding: 10px 12px;
-      max-width: 340px;
+      max-width: 360px;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       font-size: 13px;
     }
@@ -77,6 +77,14 @@
       cursor: pointer;
       font-size: 13px;
     }
+
+    /* farbige JH-Marker (DivIcon) */
+    .jh-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.9);
+      box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+    }
   </style>
 </head>
 <body>
@@ -84,51 +92,28 @@
 <div id="map"></div>
 
 <div class="ctrlbox" id="howto">
-  <h3>DJH-Karte (mobil)</h3>
-
-<div class="ctrlbox" id="howto">
   <h3>DJH-Karte</h3>
-  <div id="howtoBody">
-    <p>Interaktive Übersicht aller Jugendherbergen mit automatisch nachladbaren POIs in der Umgebung.</p>
 
-    <p>
-      🔵 Auf eine Jugendherberge klicken → POIs werden geladen<br>
-      🎨 Farben zeigen die jeweilige Kategorie<br>
-      🗺 Layer-Menü: Karte wechseln (OSM / Satellit), POIs ein/ausblenden<br>
-      🏠 „Home“ setzt die Ansicht zurück<br>
-      📖 „Legende“ erklärt die Farben
-    </p>
-
-    <p class="muted">
-      Mehr Details: <a href="README.md" target="_blank">README.md</a>
-    </p>
+  <!-- Default: eingeklappt -->
+  <div id="howtoBody" class="hidden">
+    <p>Übersicht aller Jugendherbergen. POIs werden pro JH erst beim Klick nachgeladen.</p>
+    <p class="muted">Mehr Details: <a href="README.md" target="_blank" rel="noopener">README.md</a></p>
   </div>
 
   <div class="row">
     <button class="btn" id="btnLegend">Legende</button>
-    <button class="btn" id="btnHowto">How-to aus</button>
+    <button class="btn" id="btnHowto">How-to an</button>
     <button class="btn" id="btnHome">Home</button>
   </div>
 
   <div class="status" id="status">Lade Jugendherbergen…</div>
 </div>
 
-
-  <div class="row">
-    <button class="btn" id="btnLegend">Legende</button>
-    <button class="btn" id="btnHowto">How-to aus</button>
-    <button class="btn" id="btnHome">Home</button>
-  </div>
-  <div class="status" id="status">Lade Jugendherbergen…</div>
-</div>
-
-
-<div class="legend hidden" id="legend">
-  <h3>POI-Farben</h3>
+<!-- Default: Legende sichtbar -->
+<div class="legend" id="legend">
+  <h3>Farben</h3>
+  <div class="muted" style="margin:0 0 6px 0;">JH-Farbe = häufigste POI-Kategorie (aus <code>manifest.json</code>). POI-Farbe = <code>category_group</code>.</div>
   <div id="legendItems"></div>
-  <div class="muted" style="margin-top:8px;">
-    Farben folgen <code>category_group</code> im POI-GeoJSON.
-  </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -136,10 +121,11 @@
 
 <script>
   // ---------- Config ----------
-  const PATH_JH_ONLY = "data/jh_only.geojson";        // Jugendherbergen
-  const PATH_POI     = (nr) => `data/jh_${nr}.geojson`; // POIs pro JH (lazy)
+  const PATH_JH_ONLY   = "data/jh_only.geojson";        // Jugendherbergen (Punkte)
+  const PATH_MANIFEST  = "data/jh_manifest.json";          // Mapping nr -> dominante Kategorie (für JH-Farbe)
+  const PATH_POI       = (nr) => `data/jh_${nr}.geojson`; // POIs pro JH (lazy)
 
-  // Farben für category_group
+  // Farben für category_group (POIs) und dominante Kategorie (JH)
   const COLOR_BY_GROUP = {
     "Bildungsinfrastruktur": "#1f77b4",
     "Kinder & Jugend":       "#2ca02c",
@@ -153,10 +139,113 @@
   };
 
   // ---------- UI helpers ----------
+  function normalizeNr(x) {
+  if (x === null || x === undefined) return null;
+  const m = String(x).match(/\d+/);
+  return m ? m[0] : null;
+}
+
+function extractNrFromFilename(s) {
+  if (!s) return null;
+  // akzeptiert z.B. data/jh_520.geojson, jh_520.geojson, JH_520_master.kmz, etc.
+  const m = String(s).match(/(?:^|[^0-9])(?:jh|JH)[\-_ ]*([0-9]+)(?:[^0-9]|$)/) ||
+            String(s).match(/(?:^|[^0-9])([0-9]{1,6})(?:[^0-9]|$)/);
+  return m ? m[1] : null;
+}
+
+function pickDominantFromObj(o) {
+  if (!o || typeof o !== "object") return null;
+  return (
+    o.dominant_group ??
+    o.dominant ??
+    o.dominantCategoryGroup ??
+    o.dominant_category_group ??
+    o.top_group ??
+    o.main_group ??
+    null
+  );
+}
+
+// Baut einen Index: nr(string) -> { dominant_group, counts, ... }
+// Baut einen Index: nr(string) -> { dominant_group, counts, raw }
+function buildManifestIndex(manifest) {
+  const idx = new Map();
+  if (!manifest) return idx;
+
+  // 1) Falls manifest ein Array ist oder bekannte Array-Container hat
+  const candidates =
+    Array.isArray(manifest) ? manifest :
+    Array.isArray(manifest?.items) ? manifest.items :
+    Array.isArray(manifest?.files) ? manifest.files :
+    Array.isArray(manifest?.features) ? manifest.features :
+    null;
+
+  if (candidates) {
+    for (const it of candidates) {
+      const obj = it?.properties ? it.properties : it;
+
+      const nr =
+        normalizeNr(obj?.nr) ||
+        normalizeNr(obj?.Nr) ||
+        normalizeNr(obj?.NR) ||
+        normalizeNr(obj?.jh_nr) ||
+        normalizeNr(obj?.id) ||
+        extractNrFromFilename(obj?.file) ||
+        extractNrFromFilename(obj?.path) ||
+        extractNrFromFilename(obj?.href) ||
+        extractNrFromFilename(obj?.name);
+
+      if (!nr) continue;
+
+      const dom = pickDominantFromObj(obj);
+      const counts = obj?.counts ?? obj?.group_counts ?? obj?.category_group_counts ?? null;
+
+      idx.set(String(nr), { dominant_group: dom, counts, raw: obj });
+    }
+    return idx;
+  }
+
+  // 2) Falls manifest.jh / manifest.index / manifest.by_nr existiert (Objekt-mapping)
+  if (manifest && typeof manifest === "object") {
+    const jhObj = manifest.jh || manifest.index || manifest.by_nr || null;
+    if (jhObj && typeof jhObj === "object") {
+      for (const [k, v] of Object.entries(jhObj)) {
+        const nr = normalizeNr(k);
+        if (!nr) continue;
+        const dom = pickDominantFromObj(v);
+        const counts = v?.counts ?? v?.group_counts ?? null;
+        idx.set(String(nr), { dominant_group: dom, counts, raw: v });
+      }
+      return idx;
+    }
+  }
+
+  // 3) WICHTIG: dein aktuelles Format (Plain Object):
+  // { "298": { dominant_group: "...", dominant_count: ..., poi_total: ... }, ... }
+  if (manifest && typeof manifest === "object") {
+    for (const [k, v] of Object.entries(manifest)) {
+      const nr = normalizeNr(k);
+      if (!nr) continue;
+
+      // v kann Objekt oder (seltener) String sein
+      const dom = (typeof v === "string") ? v : pickDominantFromObj(v);
+      const counts = v?.counts ?? v?.group_counts ?? null;
+
+      idx.set(String(nr), { dominant_group: dom, counts, raw: v });
+    }
+  }
+
+  return idx;
+}
+
+
+
+  
+  
   const elStatus = document.getElementById("status");
   const elLegend = document.getElementById("legend");
   const elLegendItems = document.getElementById("legendItems");
-  const elHowto = document.getElementById("howto");
+  const elHowtoBody = document.getElementById("howtoBody");
 
   function setStatus(msg) { elStatus.textContent = msg; }
 
@@ -224,9 +313,9 @@
     { maxZoom: 19, attribution: "Tiles &copy; Esri" }
   );
 
-  const map = L.map("map", { layers: [osm] });
+  // FIX #2: Satellit ist default aktiv
+  const map = L.map("map", { layers: [sat] });
 
-  // Layer containers
   const jhCluster = L.markerClusterGroup({
     chunkedLoading: true,
     showCoverageOnHover: false,
@@ -234,20 +323,49 @@
   });
   const poiLayer = L.layerGroup();
 
-  // Controls
-  const baseLayers = { "OSM": osm, "Satellit": sat };
-  const overlays   = { "Jugendherbergen": jhCluster, "POIs (geladen)": poiLayer };
-  L.control.layers(baseLayers, overlays, { collapsed: true }).addTo(map);
+  L.control.layers(
+    { "Satellit": sat, "OSM": osm },
+    { "Jugendherbergen": jhCluster, "POIs (geladen)": poiLayer },
+    { collapsed: true }
+  ).addTo(map);
 
   // ---------- State ----------
   let homeBounds = null;
   const poiCache = new Map(); // nr -> FeatureCollection
+  let manifest = null;        // geladenes Manifest
+  let manifestIndex = null;   // nr -> dominante Kategorie (string)
 
   async function fetchJson(url) {
     const r = await fetch(url, { cache: "no-store" });
     if (!r.ok) throw new Error(`HTTP ${r.status} für ${url}`);
-    const gj = await r.json();
-    return gj;
+    return await r.json();
+  }
+
+function dominantGroupForNr(nr) {
+  const key = normalizeNr(nr);
+  if (!key) return "Unbekannt";
+  if (!manifestIndex || !(manifestIndex instanceof Map)) return "Unbekannt";
+
+  const rec = manifestIndex.get(String(key));
+  if (!rec) return "Unbekannt";
+
+  // rec ist (nach buildManifestIndex) ein Objekt { dominant_group, ... }
+  const dom = rec?.dominant_group;
+
+  if (dom && String(dom).trim() !== "") return String(dom);
+  return "Unbekannt";
+}
+
+  function jhIconForNr(nr) {
+    const g = dominantGroupForNr(nr);
+    const c = colorForGroup(g);
+    return L.divIcon({
+      className: "",
+      html: `<div class="jh-dot" style="background:${c}"></div>`,
+      iconSize: [14,14],
+      iconAnchor: [7,7],
+      popupAnchor: [0,-8]
+    });
   }
 
   async function loadPOIsForJH(nr) {
@@ -294,19 +412,31 @@
 
   async function init() {
     try {
+      // Manifest ist optional, aber wenn vorhanden: JH-Marker einfärben
+      try {
+        manifest = await fetchJson(PATH_MANIFEST);
+        manifestIndex = buildManifestIndex(manifest);
+      } catch (e) {
+        console.warn("manifest konnte nicht geladen werden:", e);
+        manifestIndex = null;
+      }
+
       const gj = await fetchJson(PATH_JH_ONLY);
 
-      // Bounds -> Home
+      // Home bounds
       const tmp = L.geoJSON(gj);
       homeBounds = tmp.getBounds();
-      if (homeBounds && homeBounds.isValid()) {
-        map.fitBounds(homeBounds.pad(0.05));
-      }
+      if (homeBounds && homeBounds.isValid()) map.fitBounds(homeBounds.pad(0.05));
 
       // JH Layer
       const jhLayer = L.geoJSON(gj, {
         pointToLayer: (feature, latlng) => {
-          return L.marker(latlng, { title: getNameFromProps(feature?.properties) });
+          const p = feature?.properties || {};
+          const nr = getNrFromProps(p);
+          return L.marker(latlng, {
+            title: getNameFromProps(p),
+            icon: jhIconForNr(nr)
+          });
         },
         onEachFeature: (feature, layer) => {
           const p   = feature?.properties || {};
@@ -314,18 +444,18 @@
           const nm  = getNameFromProps(p);
           const ort = getOrtFromProps(p);
 
+          const dom = dominantGroupForNr(nr);
+
           const html = `
             <div class="popup-title">${escapeHtml(nm)}</div>
             <div><b>Nr:</b> ${escapeHtml(nr ?? "—")}</div>
             ${ort ? `<div><b>Ort:</b> ${escapeHtml(ort)}</div>` : ""}
+            ${dom ? `<div><b>Dominant:</b> ${escapeHtml(dom)}</div>` : ""}
             <div class="popup-small">Klick lädt POIs (lazy).</div>
-            <div>
-              <button class="popup-btn" data-nr="${escapeHtml(nr ?? "")}">POIs laden</button>
-            </div>
+            <div><button class="popup-btn" data-nr="${escapeHtml(nr ?? "")}">POIs laden</button></div>
           `;
           layer.bindPopup(html);
 
-          // Marker-Klick lädt POIs
           layer.on("click", async () => {
             if (!nr) {
               setStatus("Fehler: JH hat keine Nr (nr fehlt im jh_only.geojson).");
@@ -334,7 +464,6 @@
             try {
               const gjPois = await loadPOIsForJH(nr);
 
-              // immer nur 1 POI-Satz aktiv
               poiLayer.clearLayers();
 
               const poiGeo = L.geoJSON(gjPois, {
@@ -357,7 +486,6 @@
             }
           });
 
-          // Popup-Button -> triggert denselben Klick
           layer.on("popupopen", (ev) => {
             const btn = ev.popup.getElement()?.querySelector("button.popup-btn");
             if (!btn) return;
@@ -369,6 +497,7 @@
       jhCluster.addLayer(jhLayer);
       map.addLayer(jhCluster);
 
+      // Default: Legende sichtbar (ist sie per HTML), Status ok
       setStatus("Bereit. Klicke eine Jugendherberge an.");
     } catch (e) {
       console.error(e);
@@ -382,25 +511,16 @@
     elLegend.classList.toggle("hidden");
   });
 
-const elHowtoBody = document.getElementById("howtoBody");
-
-document.getElementById("btnHowto").addEventListener("click", (ev) => {
-  const btn = ev.currentTarget;
-  const hidden = elHowtoBody.classList.toggle("hidden");
-  btn.textContent = hidden ? "How-to an" : "How-to aus";
-});
-
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key.toLowerCase() === "h") elHowto.classList.toggle("hidden");
-    if (e.key.toLowerCase() === "l") elLegend.classList.toggle("hidden");
+  document.getElementById("btnHowto").addEventListener("click", (ev) => {
+    const btn = ev.currentTarget;
+    const hidden = elHowtoBody.classList.toggle("hidden");
+    btn.textContent = hidden ? "How-to an" : "How-to aus";
   });
 
   document.getElementById("btnHome").addEventListener("click", () => {
     if (homeBounds && homeBounds.isValid()) map.fitBounds(homeBounds.pad(0.05));
   });
 
-  // ---------- Go ----------
   init();
 </script>
 </body>
