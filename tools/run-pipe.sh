@@ -113,13 +113,9 @@ echo
 echo "STEP 4/4: GeoJSON → Manifest"
 echo "----------------------------------------"
 
-rm -f "$MANIFEST_FILE"
-python3 "${REPO_ROOT}/tools/build_manifest.py"
 
-if [[ ! -f "$MANIFEST_FILE" ]]; then
-  echo "ERROR: Manifest not created."
-  exit 1
-fi
+python3 "${SCRIPT_DIR}/tools/build_manifest.py"
+
 
 
 # ------------------------------
