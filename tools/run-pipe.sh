@@ -70,12 +70,20 @@ check_overwrite() {
 # ------------------------------
 echo "STEP 1/4: R → KMZ"
 echo "----------------------------------------"
-Rscript "${REPO_ROOT}/tools/batch-jh-export.r"
 
-if ! compgen -G "${EXPORT_DIR}/*.kmz" > /dev/null; then
-  echo "ERROR: No KMZ files generated in ${EXPORT_DIR}"
-  exit 1
+if compgen -G "${EXPORT_DIR}/*.kmz" > /dev/null; then
+  if [[ "$FORCE" -eq 1 ]]; then
+    echo "KMZ existieren – FORCE aktiv → neu erzeugen"
+    rm -f "${EXPORT_DIR}"/*.kmz
+    Rscript "${REPO_ROOT}/tools/batch-jh-export.r"
+  else
+    echo "SKIP: KMZ existieren bereits in ${EXPORT_DIR}"
+  fi
+else
+  echo "Keine KMZ gefunden → erzeuge neu"
+  Rscript "${REPO_ROOT}/tools/batch-jh-export.r"
 fi
+
 
 # ------------------------------
 # STEP 2
@@ -83,13 +91,13 @@ fi
 echo
 echo "STEP 2/4: KMZ → GeoJSON (convert_to_geojson.sh)"
 echo "----------------------------------------"
-bash "${REPO_ROOT}/tools/convert_to_geojson.sh"
+bash "${REPO_ROOT}/tools/convert_to_geojson.sh"  --force
 
 # ------------------------------
 # STEP 3
 # ------------------------------
 echo
-echo "STEP 3/4: KMZ → GeoJSON (main_convert_to_geojson.py)"
+echo "STEP 3/4: KML → GeoJSON (main_convert_to_geojson.py)"
 echo "----------------------------------------"
 python3 "${REPO_ROOT}/tools/main_convert_to_geojson.py"
 
@@ -105,13 +113,14 @@ echo
 echo "STEP 4/4: GeoJSON → Manifest"
 echo "----------------------------------------"
 
-check_overwrite "$MANIFEST_FILE"
+rm -f "$MANIFEST_FILE"
 python3 "${REPO_ROOT}/tools/build_manifest.py"
 
 if [[ ! -f "$MANIFEST_FILE" ]]; then
-  echo "ERROR: Manifest not created: ${MANIFEST_FILE}"
+  echo "ERROR: Manifest not created."
   exit 1
 fi
+
 
 # ------------------------------
 # DONE

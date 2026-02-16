@@ -1,38 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+FORCE=0
+for arg in "$@"; do
+  case "$arg" in
+    --force) FORCE=1 ;;
+    *) echo "Unknown option: $arg"; exit 1 ;;
+  esac
+done
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 IN="${REPO_ROOT}/data/export_kmz"
 OUT="${REPO_ROOT}/data/geojson"
-
 mkdir -p "$OUT"
 
 command -v ogr2ogr >/dev/null || { echo "FEHLER: ogr2ogr fehlt."; exit 3; }
+command -v ogrinfo >/dev/null || { echo "FEHLER: ogrinfo fehlt."; exit 3; }
 
 echo "IN=$IN"
 echo "OUT=$OUT"
+echo "FORCE=$FORCE"
 
-# -----------------------------
-# 1) DJH_alle_JH.kml – DIREKT
-# -----------------------------
-KML_FILE="${IN}/DJH_alle_JH.kml"
-
-if [[ -f "$KML_FILE" ]]; then
-  echo "Konvertiere DJH_alle_JH.kml → djh_alle_jh.geojson"
-
-  ogr2ogr \
-    -f GeoJSON \
-    "${OUT}/djh_alle_jh.geojson" \
-    "$KML_FILE"
-
-  echo "Fertig: ${OUT}/djh_alle_jh.geojson"
-fi
-
-# -----------------------------
-# 2) KMZ wie bisher
-# -----------------------------
 shopt -s nullglob
 for kmz in "$IN"/JH_*_master.kmz; do
   base="$(basename "$kmz")"
@@ -45,17 +35,28 @@ for kmz in "$IN"/JH_*_master.kmz; do
 
   out="${OUT}/jh_${nr}.geojson"
 
-  if [[ -f "$out" ]]; then
+  if [[ -f "$out" && "$FORCE" -ne 1 ]]; then
     echo "SKIP: $out existiert"
     continue
   fi
 
-  echo "Konvertiere $base → jh_${nr}.geojson"
+  # ersten Layer aus dem KMZ holen (Format: "1: LayerName (Point)")
+  layer="$(
+    ogrinfo -ro -q "$kmz" \
+      | sed -n 's/^[[:space:]]*[0-9]\+:[[:space:]]\([^()]*\).*/\1/p' \
+      | head -n 1 \
+      | sed 's/[[:space:]]*$//'
+  )"
 
-  ogr2ogr \
-    -f GeoJSON \
-    "$out" \
-    "$kmz"
+  if [[ -z "$layer" ]]; then
+    echo "ERROR: Kein Layer gefunden in $base"
+    exit 4
+  fi
+
+  echo "Konvertiere $base (Layer: $layer) → $(basename "$out")"
+
+  rm -f "$out"  # sicher überschreiben, falls FORCE=1 oder halbkaputt
+  ogr2ogr -f GeoJSON "$out" "$kmz" "$layer"
 
   echo "Fertig: $out"
 done
