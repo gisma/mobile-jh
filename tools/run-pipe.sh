@@ -1,34 +1,126 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Repo-Root = eine Ebene über tools/
+FORCE=0
+
+# ------------------------------
+# Argument Parsing
+# ------------------------------
+for arg in "$@"; do
+  case $arg in
+    --force)
+      FORCE=1
+      shift
+      ;;
+    *)
+      echo "Unknown option: $arg"
+      exit 1
+      ;;
+  esac
+done
+
+# ------------------------------
+# Path Setup
+# ------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
+EXPORT_DIR="${REPO_ROOT}/data/export_kmz"
+GEOJSON_DIR="${REPO_ROOT}/data/geojson"
+MANIFEST_FILE="${REPO_ROOT}/data/manifest.json"
+
 echo "REPO_ROOT=${REPO_ROOT}"
-
-# Zielordner sicherstellen
-mkdir -p "${REPO_ROOT}/data/export-kmz"
-mkdir -p "${REPO_ROOT}/data/geojson"
-
+echo "FORCE=${FORCE}"
 echo
-echo "STEP 1/3: R → KMZ"
+
+# ------------------------------
+# Safe Directory Creation
+# ------------------------------
+safe_mkdir() {
+  local dir="$1"
+  if [[ ! -d "$dir" ]]; then
+    echo "Creating directory: $dir"
+    mkdir -p "$dir"
+  else
+    echo "Directory exists: $dir"
+  fi
+}
+
+safe_mkdir "$EXPORT_DIR"
+safe_mkdir "$GEOJSON_DIR"
+
+# ------------------------------
+# Safe File Check
+# ------------------------------
+check_overwrite() {
+  local file="$1"
+
+  if [[ -f "$file" ]]; then
+    if [[ "$FORCE" -eq 1 ]]; then
+      echo "Overwriting existing file (force): $file"
+    else
+      echo "ERROR: File exists: $file"
+      echo "Run with --force to overwrite."
+      exit 1
+    fi
+  fi
+}
+
+# ------------------------------
+# STEP 1
+# ------------------------------
+echo "STEP 1/4: R → KMZ"
 echo "----------------------------------------"
-# Erwartung: tools/export_kmz_batch.R schreibt nach data/export-kmz
-Rscript "${REPO_ROOT}/tools/export_kmz_batch.R"
+Rscript "${REPO_ROOT}/tools/batch-jh-export.r"
 
+# Optional: Check expected outputs exist
+if ! compgen -G "${EXPORT_DIR}/*.kmz" > /dev/null; then
+  echo "ERROR: No KMZ files generated."
+  exit 1
+fi
+
+# ------------------------------
+# STEP 2
+# ------------------------------
 echo
-echo "STEP 2/3: KMZ → GeoJSON"
+echo "STEP 2/4: KMZ → GeoJSON (convert_to_geojson.sh)"
 echo "----------------------------------------"
 bash "${REPO_ROOT}/tools/convert_to_geojson.sh"
 
+# ------------------------------
+# STEP 3
+# ------------------------------
 echo
-echo "STEP 3/3: GeoJSON → Manifest"
+echo "STEP 3/4: KMZ → GeoJSON (main_convert_to_geojson.sh)"
 echo "----------------------------------------"
+bash "${REPO_ROOT}/tools/main_convert_to_geojson.sh"
+
+# Verify GeoJSON created
+if ! compgen -G "${GEOJSON_DIR}/*.geojson" > /dev/null; then
+  echo "ERROR: No GeoJSON files generated."
+  exit 1
+fi
+
+# ------------------------------
+# STEP 4
+# ------------------------------
+echo
+echo "STEP 4/4: GeoJSON → Manifest"
+echo "----------------------------------------"
+
+check_overwrite "$MANIFEST_FILE"
 python3 "${REPO_ROOT}/tools/build_manifest.py"
 
+if [[ ! -f "$MANIFEST_FILE" ]]; then
+  echo "ERROR: Manifest not created."
+  exit 1
+fi
+
+# ------------------------------
+# DONE
+# ------------------------------
 echo
 echo "DONE"
-echo "KMZ:      ${REPO_ROOT}/data/export-kmz"
-echo "GeoJSON:  ${REPO_ROOT}/data/geojson"
-echo "Manifest: ${REPO_ROOT}/data/manifest.json"
+echo "KMZ:      ${EXPORT_DIR}"
+echo "GeoJSON:  ${GEOJSON_DIR}"
+echo "Manifest: ${MANIFEST_FILE}"
