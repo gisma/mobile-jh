@@ -77,6 +77,7 @@ mobile-jh/
 * Datenformat: GeoJSON
 * Lazy Loading pro Jugendherberge
 * GitHub Pages kompatibel
+* Fingerübung für eine gemischte Pipline
 
 ---
 
