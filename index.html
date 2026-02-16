@@ -2,396 +2,338 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DJH – Jugendherbergen & POIs</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DJH – Mobile Map</title>
 
-  <!-- Leaflet -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-
-  <!-- MarkerCluster -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
-  />
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
 
   <style>
     html, body { height: 100%; margin: 0; }
     #map { height: 100%; width: 100%; }
 
-    .panel {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 9999;
-      background: rgba(255,255,255,0.95);
-      padding: 10px 12px;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
-      max-width: min(360px, calc(100vw - 20px));
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size: 13px;
-      line-height: 1.25rem;
-    }
-    .panel h1 {
-      font-size: 14px;
-      margin: 0 0 6px 0;
-    }
-    .panel .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .btn {
-      border: 1px solid #ddd;
+    .ctrl-btn {
       background: #fff;
-      padding: 6px 10px;
+      border: 0;
       border-radius: 8px;
+      padding: 6px 10px;
       cursor: pointer;
-      font-size: 13px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.15);
+      font: 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
     }
-    .btn:hover { background: #f6f6f6; }
-    .muted { color: #666; }
-
     .legend {
-      background: rgba(255,255,255,0.95);
-      padding: 8px 10px;
+      background: #fff;
       border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-size: 12px;
-      line-height: 18px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 10px rgba(0,0,0,.18);
+      font: 13px/1.25 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      max-width: 240px;
     }
-    .legend .item { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
-    .swatch {
-      width: 12px; height: 12px; border-radius: 50%;
-      border: 1px solid rgba(0,0,0,0.2);
-      flex: 0 0 12px;
-    }
+    .legend h4 { margin: 0 0 8px 0; font-size: 13px; }
+    .legend .row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+    .swatch { width: 12px; height: 12px; border-radius: 999px; border: 2px solid rgba(0,0,0,.15); }
 
-    /* small mobile tweak */
-    @media (max-width: 480px) {
-      .panel { top: 8px; left: 8px; padding: 9px 10px; }
+    .howto-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
     }
+    .howto-card {
+      width: min(560px, calc(100% - 32px));
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      font: 14px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+    .howto-card h3 { margin: 0 0 8px 0; font-size: 16px; }
+    .howto-card ul { margin: 8px 0 0 18px; padding: 0; }
+    .howto-card .actions { display:flex; justify-content:flex-end; margin-top: 12px; }
   </style>
 </head>
-
 <body>
-  <div id="map"></div>
+<div id="map"></div>
 
-  <div class="panel" id="howto">
-    <h1>DJH Karte</h1>
-    <div class="muted" style="margin-bottom:6px;">
-      Klick auf eine Jugendherberge lädt POIs nach. Zoom ins Cluster zeigt Details.
-    </div>
-    <div class="row">
-      <button class="btn" id="btnHome">Home</button>
-      <button class="btn" id="btnLegend">Legende</button>
-      <button class="btn" id="btnHelp">How-to</button>
-    </div>
-    <div class="muted" style="margin-top:6px;">
-      Status: <span id="status">lade…</span>
+<div id="howto" class="howto-overlay">
+  <div class="howto-card">
+    <h3>So nutzt du die Karte</h3>
+    <ul>
+      <li>Die blauen Marker sind Jugendherbergen (geclustert).</li>
+      <li>Klick auf eine Jugendherberge lädt die POIs für diese JH (lazy).</li>
+      <li>POIs werden farbig nach Kategoriegruppe angezeigt.</li>
+      <li>Über das Layer-Menü kannst du JH/POIs ein- und ausblenden.</li>
+      <li>„Home“ zoomt wieder auf die Gesamtübersicht.</li>
+    </ul>
+    <div class="actions">
+      <button class="ctrl-btn" id="howtoClose">OK</button>
     </div>
   </div>
+</div>
 
-  <script>
-    // ---------- Config ----------
-    const DATA_DIR = "data";
-    const JH_ONLY = `${DATA_DIR}/jh_only.geojson`;
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
-    // POI Farben nach category_group
-    const colors = {
-      "Bildungsinfrastruktur": "#1f78b4",
-      "Kinder & Jugend": "#33a02c",
-      "Kultur & Geschichte": "#e31a1c",
-      "Natur & Landschaft": "#6a3d9a",
-      "Freizeit & Sport": "#ff7f00",
-      "Wissenschaft": "#b15928",
-      "Information": "#17becf",
-      "Routen": "#8c564b"
-    };
-    const fallbackColor = "#666";
+<script>
+(() => {
+  const PATH_JH_ONLY = "data/jh_only.geojson";
+  const PATH_JH_POI  = (nr) => `data/jh_${nr}.geojson`;
 
-    const statusEl = document.getElementById("status");
-    function setStatus(s) { statusEl.textContent = s; }
+  // --- Farb-Mapping für category_group (stabil, klein gehalten)
+  const GROUP_COLORS = {
+    "Bildungsinfrastruktur": "#2563eb",
+    "Kinder & Jugend":       "#16a34a",
+    "Kultur & Geschichte":   "#a855f7",
+    "Natur & Landschaft":    "#0ea5e9",
+    "Freizeit & Sport":      "#f59e0b",
+    "Routen":                "#ef4444",
+    "Wissenschaft":          "#8b5cf6",
+    "Information":           "#64748b",
+    "Sonstiges":             "#334155"
+  };
 
-    // ---------- Basemaps ----------
-    const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: "&copy; OpenStreetMap"
-    });
+  // --- Minimaler HTML-Sanitizer: wir lassen KML-Description als HTML zu (dein Inhalt),
+  //     aber bauen Popups kontrolliert (kein eval, kein Script).
+  function safeText(x) {
+    if (x === null || x === undefined) return "";
+    return String(x);
+  }
 
-    // Esri World Imagery (leicht & robust)
-    const esriSat = L.tileLayer(
-      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      { maxZoom: 19, attribution: "Tiles &copy; Esri" }
-    );
+  // Kategorie aus description extrahieren:
+  // erwartet z.B. "<b>Kategorie:</b> Bildungsinfrastruktur — Bibliothek"
+  function parseCategoryGroup(descHtml) {
+    const s = safeText(descHtml);
+    // tolerant: Gedankenstrich kann "—" oder "-" sein
+    const m = s.match(/Kategorie:<\/b>\s*([^<]+?)\s*(?:—|-)\s*([^<]+?)\s*(?:<br>|$)/i);
+    if (!m) return { group: "Sonstiges", cat: "" };
+    return { group: m[1].trim() || "Sonstiges", cat: (m[2] || "").trim() };
+  }
 
-    // ---------- Map ----------
-    const map = L.map("map", {
-      layers: [osm],
-      zoomControl: true
-    });
+  function isJHFeatureFromKmlProps(props) {
+    // In jh_<nr>.geojson kommt "Name" aus KML.
+    // JH ist bei dir typischerweise "JH <nr> — ..."
+    const nm = safeText(props.Name || props.name || "");
+    return /^JH\s+\d+\s+—/u.test(nm) || /^JH\s+\d+\s+-/u.test(nm) || /^JH\s+\d+/u.test(nm);
+  }
 
-    // Default view (wird nach JH-Ladung auf bounds gesetzt)
-    map.setView([51.0, 10.0], 6);
+  // --- Map + Basemaps
+  const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19, attribution: "&copy; OpenStreetMap"
+  });
 
-    // ---------- Layer groups ----------
-    const jhClusters = L.markerClusterGroup({
-      showCoverageOnHover: false,
-      spiderfyOnMaxZoom: true,
-      disableClusteringAtZoom: 12
-    });
-    const poiLayer = L.layerGroup();
+  const esriSat = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    { maxZoom: 19, attribution: "Tiles &copy; Esri" }
+  );
 
-    // Layer control
-    const baseLayers = { "OSM": osm, "Satellit": esriSat };
-    const overlays = { "Jugendherbergen": jhClusters, "POIs": poiLayer };
-    L.control.layers(baseLayers, overlays, { collapsed: true }).addTo(map);
+  const map = L.map("map", { layers: [osm] });
 
-    // ---------- Legend control ----------
-    let legendVisible = true;
-    const legend = L.control({ position: "bottomright" });
-    legend.onAdd = function() {
-      const div = L.DomUtil.create("div", "legend");
-      div.innerHTML = `
-        <div style="font-weight:600; margin-bottom:6px;">Kategorien</div>
-        ${Object.keys(colors).map(k => `
-          <div class="item">
-            <span class="swatch" style="background:${colors[k]};"></span>
-            <span>${k}</span>
-          </div>
-        `).join("")}
-        <div class="item">
-          <span class="swatch" style="background:${fallbackColor};"></span>
-          <span>Sonstiges</span>
-        </div>
-      `;
-      // Clicks auf Legende sollen nicht die Karte bewegen
-      L.DomEvent.disableClickPropagation(div);
-      return div;
-    };
-    legend.addTo(map);
+  // --- Layer: JH cluster + POIs
+  const jhCluster = L.markerClusterGroup({
+    chunkedLoading: true,
+    spiderfyOnMaxZoom: true
+  });
 
-    function toggleLegend() {
-      legendVisible = !legendVisible;
-      if (legendVisible) legend.addTo(map);
-      else legend.remove();
-    }
+  const poiLayer = L.featureGroup();
 
-    // ---------- Helpers ----------
-    function htmlEscape(s) {
-      if (s === null || s === undefined) return "";
-      return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
+  // --- Controls: Layers
+  const baseMaps = { "OSM": osm, "Satellit": esriSat };
+  const overlays = { "Jugendherbergen": jhCluster, "POIs": poiLayer };
+  L.control.layers(baseMaps, overlays, { collapsed: true }).addTo(map);
 
-    function poiStyle(feature) {
-      const p = feature.properties || {};
-      const cg = p.category_group || p.category || "";
-      const c = colors[cg] || fallbackColor;
-      return {
-        radius: 6,
-        fillColor: c,
-        color: "#fff",
-        weight: 1,
-        fillOpacity: 0.92
-      };
-    }
-
-    function poiPopupHTML(p) {
-      const title = htmlEscape(p.name || p.poi_name || "POI");
-      const cg = htmlEscape(p.category_group || "");
-      const cat = htmlEscape(p.category || "");
-      const dist = (p.dist_m !== undefined && p.dist_m !== null) ? `${htmlEscape(p.dist_m)} m` : "";
-      const ort = htmlEscape(p.ort || "");
-      const descr = p.Description ? String(p.Description) : ""; // ggf. schon HTML aus Export
-
-      // Falls Description HTML ist, lassen wir es drin; sonst fallback
-      const meta = `
-        ${cg ? `<div><b>${cg}</b>${cat ? ` — ${cat}` : ""}</div>` : ""}
-        ${dist ? `<div><b>Distanz:</b> ${dist}</div>` : ""}
-        ${ort ? `<div><b>Ort:</b> ${ort}</div>` : ""}
-      `;
-      return `<div style="min-width:220px">
-        <div style="font-weight:600; margin-bottom:4px">${title}</div>
-        ${descr ? `<div style="margin-bottom:6px">${descr}</div>` : meta}
-      </div>`;
-    }
-
-    // ---------- Data loading ----------
-    const poiCache = new Map(); // nr -> L.GeoJSON layer
-
-    async function loadGeoJSON(url) {
-      const r = await fetch(url, { cache: "no-store" });
-      if (!r.ok) throw new Error(`HTTP ${r.status} für ${url}`);
-      return await r.json();
-    }
-
-    function getNrFromProps(props) {
-      // robust: nr kann Zahl oder String sein
-      const nr = props?.nr ?? props?.NR ?? props?.jh_nr ?? props?.JH_NR;
-      if (nr === null || nr === undefined) return null;
-      const m = String(nr).match(/\d+/);
-      return m ? m[0] : null;
-    }
-
-    async function loadPOIsForJH(nr) {
-      if (poiCache.has(nr)) {
-        return poiCache.get(nr);
-      }
-      const url = `${DATA_DIR}/jh_${nr}.geojson`;
-      setStatus(`lade POIs für JH ${nr}…`);
-      const data = await loadGeoJSON(url);
-
-      // GeoJSON kann JH+POI enthalten -> wir rendern:
-      // - Punkte mit kind="JH" als Marker (optional)
-      // - kind="POI" als circleMarker
-      // Wenn "kind" nicht existiert: POIs erkennen über category_group/poi_name/name, JH über nr
-      const layer = L.geoJSON(data, {
-        pointToLayer: (feature, latlng) => {
-          const p = feature.properties || {};
-          const kind = (p.kind || "").toUpperCase();
-
-          const isJH = (kind === "JH") || (
-            (p.category_group === undefined && p.category === undefined) &&
-            (getNrFromProps(p) !== null)
-          );
-
-          if (isJH) {
-            // JH Marker: neutral dunkel
-            return L.circleMarker(latlng, {
-              radius: 7,
-              fillColor: "#111",
-              color: "#fff",
-              weight: 2,
-              fillOpacity: 0.9
-            });
-          }
-
-          // POI
-          return L.circleMarker(latlng, poiStyle(feature));
-        },
-        onEachFeature: (feature, lyr) => {
-          const p = feature.properties || {};
-          lyr.bindPopup(poiPopupHTML(p));
-        },
-        filter: (feature) => {
-          // Filter: keine leeren Namen als POI anzeigen
-          const p = feature.properties || {};
-          const kind = (p.kind || "").toUpperCase();
-          const isJH = (kind === "JH") || (getNrFromProps(p) !== null && !p.category_group && !p.category);
-
-          if (isJH) return true;
-
-          const name = (p.name || p.poi_name || "").trim();
-          if (!name) return false; // das war dein Hauptproblem in MyMaps: "Unbenannt"
-          // category_group kann fehlen -> trotzdem zeigen wir POI, aber in fallbackColor
-          return true;
-        }
+  // --- Home button (Leaflet control)
+  let homeBounds = null;
+  const HomeControl = L.Control.extend({
+    onAdd: function() {
+      const btn = L.DomUtil.create("button", "ctrl-btn");
+      btn.type = "button";
+      btn.textContent = "Home";
+      L.DomEvent.disableClickPropagation(btn);
+      btn.addEventListener("click", () => {
+        if (homeBounds) map.fitBounds(homeBounds.pad(0.10));
       });
+      return btn;
+    },
+    onRemove: function() {}
+  });
+  (new HomeControl({ position: "topleft" })).addTo(map);
 
-      poiCache.set(nr, layer);
-      return layer;
+  // --- Howto button
+  const HowtoControl = L.Control.extend({
+    onAdd: function() {
+      const btn = L.DomUtil.create("button", "ctrl-btn");
+      btn.type = "button";
+      btn.textContent = "How-to";
+      L.DomEvent.disableClickPropagation(btn);
+      btn.addEventListener("click", () => showHowto(true));
+      return btn;
     }
+  });
+  (new HowtoControl({ position: "topleft" })).addTo(map);
 
-    // ---------- JH rendering ----------
-    let homeBounds = null;
+  const howto = document.getElementById("howto");
+  document.getElementById("howtoClose").addEventListener("click", () => showHowto(false));
+  howto.addEventListener("click", (e) => { if (e.target === howto) showHowto(false); });
+  function showHowto(on) { howto.style.display = on ? "flex" : "none"; }
 
-    async function init() {
-      try {
-        setStatus("lade Jugendherbergen…");
-        const jhData = await loadGeoJSON(JH_ONLY);
+  // --- Legend control (toggle)
+  let legendVisible = true;
 
-        const jhLayer = L.geoJSON(jhData, {
-          pointToLayer: (feature, latlng) => {
-            // JH Marker: dunkler Punkt (mobil unaufdringlich) – Cluster macht Rest
-            return L.circleMarker(latlng, {
-              radius: 7,
-              fillColor: "#111",
-              color: "#fff",
-              weight: 2,
-              fillOpacity: 0.9
-            });
-          },
-          onEachFeature: (feature, lyr) => {
-            const p = feature.properties || {};
-            const nr = getNrFromProps(p);
-            const name = htmlEscape(p.name || p.jh_name || "Jugendherberge");
-            const ort = htmlEscape(p.ort || "");
-            const title = nr ? `JH ${nr} — ${name}` : name;
+  const legendCtrl = L.control({ position: "bottomleft" });
+  legendCtrl.onAdd = function() {
+    const div = L.DomUtil.create("div", "legend");
+    div.id = "legendBox";
+    div.innerHTML = renderLegendHtml();
+    L.DomEvent.disableClickPropagation(div);
+    return div;
+  };
+  legendCtrl.addTo(map);
 
-            lyr.bindPopup(`
-              <div style="min-width:240px">
-                <div style="font-weight:600; margin-bottom:6px">${title}</div>
-                ${ort ? `<div><b>Ort:</b> ${ort}</div>` : ""}
-                <div class="muted" style="margin-top:6px">Klick lädt POIs dieser JH nach.</div>
-              </div>
-            `);
+  const LegendToggle = L.Control.extend({
+    onAdd: function() {
+      const btn = L.DomUtil.create("button", "ctrl-btn");
+      btn.type = "button";
+      btn.textContent = "Legende";
+      L.DomEvent.disableClickPropagation(btn);
+      btn.addEventListener("click", () => {
+        legendVisible = !legendVisible;
+        const box = document.getElementById("legendBox");
+        if (box) box.style.display = legendVisible ? "block" : "none";
+      });
+      return btn;
+    }
+  });
+  (new LegendToggle({ position: "bottomleft" })).addTo(map);
 
-            lyr.on("click", async () => {
-              if (!nr) return;
-              try {
-                const layer = await loadPOIsForJH(nr);
-                if (!map.hasLayer(poiLayer)) map.addLayer(poiLayer);
-                layer.addTo(poiLayer);
-                setStatus(`POIs geladen: JH ${nr}`);
-              } catch (e) {
-                console.error(e);
-                setStatus(`POIs konnten nicht geladen werden (JH ${nr}).`);
-                alert(`Konnte data/jh_${nr}.geojson nicht laden.`);
-              }
-            });
+  function renderLegendHtml() {
+    const groups = Object.keys(GROUP_COLORS);
+    const rows = groups.map(g => {
+      const c = GROUP_COLORS[g];
+      return `<div class="row"><span class="swatch" style="background:${c}"></span><span>${g}</span></div>`;
+    }).join("");
+    return `<h4>POI-Kategorien</h4>${rows}`;
+  }
+
+  // --- Lazy load cache (pro JH)
+  const loadedPoi = new Map(); // nr -> true
+
+  async function loadJhOnly() {
+    const r = await fetch(PATH_JH_ONLY, { cache: "no-store" });
+    if (!r.ok) throw new Error(`Konnte ${PATH_JH_ONLY} nicht laden (${r.status}).`);
+    return r.json();
+  }
+
+  function jhMarkerPopup(props) {
+    const nr  = safeText(props.nr);
+    const nm  = safeText(props.jh_name || props.name || props.Name || "");
+    const ort = safeText(props.ort || props.city || "");
+    const title = nm ? nm : (nr ? `JH ${nr}` : "Jugendherberge");
+    const lines = [
+      `<b>${title}</b>`,
+      nr ? `<div>Nr: ${nr}</div>` : "",
+      ort ? `<div>Ort: ${ort}</div>` : "",
+      nr ? `<div style="margin-top:6px;opacity:.8">Klick lädt POIs (lazy).</div>` : ""
+    ].filter(Boolean).join("");
+    return lines;
+  }
+
+  async function loadPoisForNr(nr) {
+    if (!nr) return;
+
+    // wenn bereits geladen: nur highlight / reopen wäre möglich, wir laden nicht neu
+    if (loadedPoi.get(String(nr))) return;
+
+    const url = PATH_JH_POI(nr);
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error(`Konnte ${url} nicht laden (${r.status}).`);
+
+    const gj = await r.json();
+
+    // GeoJSON enthält JH + POIs; wir nehmen hier NUR POIs (alles, was nicht wie JH-Name aussieht)
+    const poiFeatures = (gj.features || []).filter(f => {
+      const props = f.properties || {};
+      return !isJHFeatureFromKmlProps(props);
+    });
+
+    const poiGJ = { type: "FeatureCollection", features: poiFeatures };
+
+    const layer = L.geoJSON(poiGJ, {
+      pointToLayer: (feature, latlng) => {
+        const props = feature.properties || {};
+        const desc  = props.description || props.Description || "";
+        const parsed = parseCategoryGroup(desc);
+        const group = parsed.group in GROUP_COLORS ? parsed.group : "Sonstiges";
+        const color = GROUP_COLORS[group] || GROUP_COLORS["Sonstiges"];
+
+        return L.circleMarker(latlng, {
+          radius: 6,
+          weight: 2,
+          color: "rgba(255,255,255,.9)",
+          fillColor: color,
+          fillOpacity: 0.9
+        });
+      },
+      onEachFeature: (feature, lyr) => {
+        const props = feature.properties || {};
+        const nm = safeText(props.Name || props.name || "POI");
+        const desc = props.description || props.Description || "";
+        // Popup: Name + raw description (dein HTML)
+        lyr.bindPopup(`<b>${nm}</b><div style="margin-top:6px">${desc}</div>`, { maxWidth: 360 });
+      }
+    });
+
+    layer.addTo(poiLayer);
+    loadedPoi.set(String(nr), true);
+  }
+
+  function addJhMarkers(gj) {
+    const jh = L.geoJSON(gj, {
+      pointToLayer: (feature, latlng) => {
+        return L.marker(latlng);
+      },
+      onEachFeature: (feature, lyr) => {
+        const props = feature.properties || {};
+        const nr = props.nr;
+        lyr.bindPopup(jhMarkerPopup(props));
+
+        lyr.on("click", async () => {
+          try {
+            await loadPoisForNr(nr);
+          } catch (e) {
+            alert(e.message || String(e));
           }
         });
-
-        jhClusters.addLayer(jhLayer);
-        map.addLayer(jhClusters);
-
-        // Home bounds
-        const b = jhLayer.getBounds();
-        if (b && b.isValid()) {
-          homeBounds = b.pad(0.15);
-          map.fitBounds(homeBounds, { animate: false });
-        }
-
-        setStatus("bereit");
-      } catch (e) {
-        console.error(e);
-        setStatus("Fehler beim Laden.");
-        alert("Konnte jh_only.geojson nicht laden.");
       }
+    });
+
+    jhCluster.addLayer(jh);
+    map.addLayer(jhCluster);
+
+    const b = jhCluster.getBounds();
+    if (b && b.isValid()) {
+      homeBounds = b;
+      map.fitBounds(b.pad(0.10));
+    } else {
+      map.setView([51.2, 10.4], 6); // Fallback Deutschland
     }
+  }
 
-    // ---------- UI buttons ----------
-    document.getElementById("btnLegend").addEventListener("click", toggleLegend);
+  // --- Boot
+  (async () => {
+    try {
+      const gj = await loadJhOnly();
+      addJhMarkers(gj);
+      // Hinweis beim ersten Start einmal anzeigen
+      showHowto(true);
+    } catch (e) {
+      alert(e.message || String(e));
+    }
+  })();
 
-    let howtoVisible = true;
-    document.getElementById("btnHelp").addEventListener("click", () => {
-      howtoVisible = !howtoVisible;
-      document.getElementById("howto").style.display = howtoVisible ? "block" : "none";
-    });
-
-    document.getElementById("btnHome").addEventListener("click", () => {
-      if (homeBounds) map.fitBounds(homeBounds, { animate: true });
-      else map.setView([51.0, 10.0], 6);
-    });
-
-    init();
-  </script>
+})();
+</script>
 </body>
 </html>
