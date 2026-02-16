@@ -121,9 +121,9 @@
 
 <script>
   // ---------- Config ----------
-  const PATH_JH_ONLY   = "data/jh_only.geojson";        // Jugendherbergen (Punkte)
-  const PATH_MANIFEST  = "data/jh_manifest.json";          // Mapping nr -> dominante Kategorie (für JH-Farbe)
-  const PATH_POI       = (nr) => `data/jh_${nr}.geojson`; // POIs pro JH (lazy)
+  const PATH_JH_ONLY   = "data/geojson/DJH_alle_JH.geojson";        // Jugendherbergen (Punkte)
+  const PATH_MANIFEST  = "data/geojson/manifest.json";          // Mapping nr -> dominante Kategorie (für JH-Farbe)
+  const PATH_POI       = (nr) => `data/geojson/jh_${nr}.geojson`; // POIs pro JH (lazy)
 
   // Farben für category_group (POIs) und dominante Kategorie (JH)
   const COLOR_BY_GROUP = {
@@ -147,7 +147,7 @@
 
 function extractNrFromFilename(s) {
   if (!s) return null;
-  // akzeptiert z.B. data/jh_520.geojson, jh_520.geojson, JH_520_master.kmz, etc.
+  // akzeptiert z.B. data/geojson/jh_520.geojson, jh_520.geojson, JH_520_master.kmz, etc.
   const m = String(s).match(/(?:^|[^0-9])(?:jh|JH)[\-_ ]*([0-9]+)(?:[^0-9]|$)/) ||
             String(s).match(/(?:^|[^0-9])([0-9]{1,6})(?:[^0-9]|$)/);
   return m ? m[1] : null;
@@ -316,13 +316,21 @@ function buildManifestIndex(manifest) {
   // FIX #2: Satellit ist default aktiv
   const map = L.map("map", { layers: [sat] });
 
-  const jhCluster = L.markerClusterGroup({
-    chunkedLoading: true,
-    showCoverageOnHover: false,
-    spiderfyOnMaxZoom: true
-  });
-  const poiLayer = L.layerGroup();
+  
 
+const jhCluster = L.markerClusterGroup({
+  chunkedLoading: true,
+  showCoverageOnHover: false,
+  zoomToBoundsOnClick: false,
+  spiderfyOnMaxZoom: true,
+
+  // 1) weniger aggressiv:
+  maxClusterRadius: 80,          // Default ~80. 20–35 ist „deutlich weniger Cluster“.
+
+  // 2) ab bestimmtem Zoom keine Cluster mehr:
+  disableClusteringAtZoom: 7     // ab Zoom 7 werden alle Marker einzeln gezeigt
+});
+  const poiLayer = L.layerGroup();
   L.control.layers(
     { "Satellit": sat, "OSM": osm },
     { "Jugendherbergen": jhCluster, "POIs (geladen)": poiLayer },
@@ -443,22 +451,49 @@ function dominantGroupForNr(nr) {
           const nr  = getNrFromProps(p);
           const nm  = getNameFromProps(p);
           const ort = getOrtFromProps(p);
+          const plz = p?.plz ?? "";
+const str = p?.strasse ?? "";
+const tel = p?.telefon ?? "";
+const adr = p?.address ?? "";
+const bl  = p?.bundesland ?? "";
+
 
           const dom = dominantGroupForNr(nr);
 
-          const html = `
-            <div class="popup-title">${escapeHtml(nm)}</div>
-            <div><b>Nr:</b> ${escapeHtml(nr ?? "—")}</div>
-            ${ort ? `<div><b>Ort:</b> ${escapeHtml(ort)}</div>` : ""}
-            ${dom ? `<div><b>Dominant:</b> ${escapeHtml(dom)}</div>` : ""}
-            <div class="popup-small">Klick lädt POIs (lazy).</div>
-            
-          `;
+const html = `
+  <div class="popup-title">${escapeHtml(nm ?? "—")}</div>
+
+  <div><b>Nr:</b> ${escapeHtml(nr ?? "—")}</div>
+
+  ${ort ? `<div><b>Ort:</b> ${escapeHtml(ort)}</div>` : ""}
+
+  ${p?.plz ? `<div><b>PLZ:</b> ${escapeHtml(p.plz)}</div>` : ""}
+
+  ${p?.strasse ? `<div><b>Straße:</b> ${escapeHtml(p.strasse)}</div>` : ""}
+
+  ${p?.address ? `<div><b>Adresse:</b> ${escapeHtml(p.address)}</div>` : ""}
+
+  ${p?.bundesland ? `<div><b>Bundesland:</b> ${escapeHtml(p.bundesland)}</div>` : ""}
+
+  ${p?.telefon ? `<div><b>Telefon:</b> ${escapeHtml(p.telefon)}</div>` : ""}
+
+  ${dom ? `<div><b>Dominant:</b> ${escapeHtml(dom)}</div>` : ""}
+
+  ${p?.["name.x"] ? `<div><b>name.x:</b> ${escapeHtml(p["name.x"])}</div>` : ""}
+
+  <div class="popup-small">Klick lädt POIs (lazy).</div>
+
+  <div>
+    <button class="popup-btn" data-nr="${escapeHtml(nr ?? "")}">
+      POIs laden
+    </button>
+  </div>
+`;
           layer.bindPopup(html);
 
           layer.on("click", async () => {
             if (!nr) {
-              setStatus("Fehler: JH hat keine Nr (nr fehlt im jh_only.geojson).");
+              setStatus("Fehler: JH hat keine Nr (nr fehlt im DJH_alle_JH.geojson).");
               return;
             }
             try {

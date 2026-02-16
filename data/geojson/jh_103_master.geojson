@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "JH",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "JH 103 — Jugendherberge Biberach", "description": "<b>JH Nr:</b> 103<br><b>Name:</b> Jugendherberge Biberach<br><b>Ort:</b> Biberach<br><b>Adresse:</b> Heusteige 40 88400 Biberach<br><b>Telefon:</b> +49 7351 21885<br><b>Bundesland:</b> Baden-Württemberg", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 9.8048007, 48.0944502 ] } }
+]
+}
