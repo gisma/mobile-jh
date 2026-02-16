@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"name": "merged",
+"features": [
+{ "type": "Feature", "properties": { "Name": "JH 347 — Jugendherberge Mönchengladbach", "description": "<b>JH Nr:</b> 347<br><b>Name:</b> Jugendherberge Mönchengladbach<br><b>Ort:</b> Mönchengladbach", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 6.4121384, 51.1311832 ] } },
+{ "type": "Feature", "properties": { "Name": "Gemeindeladen", "description": "<b>Kategorie:<\/b> Bildungsinfrastruktur — Gemeindezentrum<br><b>Distanz:<\/b>   78 m<br><b>Website:<\/b> https:\/\/www.kirche-wickrathberg.de\/<br><b>Wikipedia:<\/b> <br><b>Telefon:<\/b> +49 2166 54976", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 6.4128385, 51.1306403 ] } },
+{ "type": "Feature", "properties": { "Name": "Like a Woman", "description": "<b>Kategorie:<\/b> Freizeit & Sport — Sportzentrum<br><b>Distanz:<\/b>   30 m<br><b>Website:<\/b> <br><b>Wikipedia:<\/b> <br><b>Telefon:<\/b> ", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 6.4125132, 51.1313184 ] } },
+{ "type": "Feature", "properties": { "Name": "Schlosspark Wickrath", "description": "<b>Kategorie:<\/b> Information — Besucherinformation<br><b>Distanz:<\/b>  454 m<br><b>Website:<\/b> <br><b>Wikipedia:<\/b> <br><b>Telefon:<\/b> ", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 6.4135792, 51.1272033 ] } },
+{ "type": "Feature", "properties": { "Name": "Voosen aktuell", "description": "<b>Kategorie:<\/b> Information — Besucherinformation<br><b>Distanz:<\/b> 3221 m<br><b>Website:<\/b> <br><b>Wikipedia:<\/b> <br><b>Telefon:<\/b> ", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 6.3805072, 51.1522086 ] } },
+{ "type": "Feature", "properties": { "Name": "Im Hofenbruch", "description": "<b>Kategorie:<\/b> Natur & Landschaft — Natur-Feature (alle)<br><b>Distanz:<\/b> 1561 m<br><b>Website:<\/b> <br><b>Wikipedia:<\/b> <br><b>Telefon:<\/b> ", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 6.434419, 51.130691 ] } },
+{ "type": "Feature", "properties": { "Name": "Güdderather Bruch", "description": "<b>Kategorie:<\/b> Natur & Landschaft — Natur-Feature (alle)<br><b>Distanz:<\/b> 2076 m<br><b>Website:<\/b> <br><b>Wikipedia:<\/b> <br><b>Telefon:<\/b> ", "tessellate": -1, "extrude": 0, "visibility": -1 }, "geometry": { "type": "Point", "coordinates": [ 6.441799, 51.1314313 ] } }
+]
+}

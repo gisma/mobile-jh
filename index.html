@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DJH Karte</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map { height: 100vh; width: 100vw; }
+    .popup-title { font-weight: 700; margin-bottom: 6px; }
+    .btn {
+      display:inline-block; padding:6px 10px; border:1px solid #ccc; border-radius:8px;
+      text-decoration:none; color:#111; background:#fff; font-size:14px;
+    }
+    .muted { color:#666; font-size:12px; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+<script>
+  const map = L.map('map', { preferCanvas: true }).setView([51.2, 10.4], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  // Cluster für JH
+  const jhCluster = L.markerClusterGroup({
+    chunkedLoading: true,
+    chunkInterval: 50,
+    chunkDelay: 10
+  });
+  map.addLayer(jhCluster);
+
+  // POI-Layer pro JH (wird beim Klick geladen und gecached)
+  const poiCache = new Map();   // nr -> LayerGroup
+  const loading = new Set();    // nr gerade im Load
+
+  function htmlEscape(s) {
+    return String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function popupForJH(props) {
+    const nr = props.nr ?? props.NR ?? props.jh_nr;
+    const name = props.name || props.jh_name || props.NAME || ("JH " + nr);
+    const ort = props.ort || props.city || "";
+    return `
+      <div class="popup-title">${htmlEscape(name)}</div>
+      <div class="muted">Nr: ${htmlEscape(nr)} ${ort ? "• " + htmlEscape(ort) : ""}</div>
+      <div style="margin-top:10px">
+        <a class="btn" href="#" onclick="window.__loadPOI(${JSON.stringify(nr)}); return false;">POIs laden</a>
+        <a class="btn" href="#" onclick="window.__clearPOI(${JSON.stringify(nr)}); return false;">POIs ausblenden</a>
+      </div>
+    `;
+  }
+
+  function stylePOI(feature) {
+    // Minimal: unterschiedliche Markerfarben je category_group -> hier nur via Icon-Farbe möglich,
+    // aber Leaflet Default Marker ist blau. Für echte Farben: eigene SVG/DivIcons.
+    // Wir halten es bewusst lightweight (Canvas + Cluster).
+    return {};
+  }
+
+  window.__clearPOI = function(nr) {
+    if (!poiCache.has(nr)) return;
+    map.removeLayer(poiCache.get(nr));
+  };
+
+  window.__loadPOI = async function(nr) {
+    if (poiCache.has(nr)) {
+      map.addLayer(poiCache.get(nr));
+      return;
+    }
+    if (loading.has(nr)) return;
+    loading.add(nr);
+
+    const url = `data/jh_${nr}.geojson`;
+
+    try {
+      const r = await fetch(url, { cache: "force-cache" });
+      if (!r.ok) throw new Error(`HTTP ${r.status} für ${url}`);
+      const gj = await r.json();
+
+      // Punkte: POIs (und ggf. JH) rendern – POIs als CircleMarker ist deutlich leichter als echte Marker
+      const layer = L.geoJSON(gj, {
+        pointToLayer: (feature, latlng) => {
+          const p = feature.properties || {};
+          const kind = (p.kind || "").toUpperCase();
+          if (kind === "JH") {
+            // JH (falls enthalten) klein darstellen
+            return L.circleMarker(latlng, { radius: 6, weight: 2, fillOpacity: 0.3 });
+          }
+          // POIs
+          return L.circleMarker(latlng, { radius: 4, weight: 1, fillOpacity: 0.7 });
+        },
+        onEachFeature: (feature, l) => {
+          const p = feature.properties || {};
+          const title = p.name || p.poi_name || p.category || "POI";
+          const desc = p.Description || p.description || "";
+          l.bindPopup(`<div class="popup-title">${htmlEscape(title)}</div>${desc}`);
+        }
+      });
+
+      // Optional: POIs clustern (kannst du an/aus schalten)
+      const poiCluster = L.markerClusterGroup({
+        chunkedLoading: true,
+        chunkInterval: 50,
+        chunkDelay: 10
+      });
+      poiCluster.addLayer(layer);
+
+      poiCache.set(nr, poiCluster);
+      map.addLayer(poiCluster);
+    } catch (e) {
+      console.error(e);
+      alert(`POIs konnten nicht geladen werden: ${nr}\n${e.message}`);
+    } finally {
+      loading.delete(nr);
+    }
+  };
+
+  // JH laden (nur Punkte)
+  fetch("data/jh_only.geojson", { cache: "no-cache" })
+    .then(r => r.json())
+    .then(gj => {
+      const layer = L.geoJSON(gj, {
+        pointToLayer: (feature, latlng) => L.marker(latlng),
+        onEachFeature: (feature, l) => {
+          const props = feature.properties || {};
+          l.bindPopup(popupForJH(props));
+        }
+      });
+      jhCluster.addLayer(layer);
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Konnte jh_only.geojson nicht laden.");
+    });
+</script>
+</body>
+</html>
