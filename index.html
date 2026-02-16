@@ -452,7 +452,7 @@ function dominantGroupForNr(nr) {
             ${ort ? `<div><b>Ort:</b> ${escapeHtml(ort)}</div>` : ""}
             ${dom ? `<div><b>Dominant:</b> ${escapeHtml(dom)}</div>` : ""}
             <div class="popup-small">Klick lädt POIs (lazy).</div>
-            <div><button class="popup-btn" data-nr="${escapeHtml(nr ?? "")}">POIs laden</button></div>
+            
           `;
           layer.bindPopup(html);
 
