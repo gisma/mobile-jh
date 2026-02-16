@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FORCE=0
+FORCE=1
 
 # ------------------------------
 # Argument Parsing
