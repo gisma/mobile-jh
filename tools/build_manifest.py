@@ -4,7 +4,7 @@ from collections import Counter
 
 REPO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../mobile-jh
 DATA_GEOJSON = os.path.join(REPO_DIR, "data", "geojson")
-OUT = os.path.join(REPO_DIR, "data", "manifest.json")
+OUT = os.path.join(REPO_DIR, "data", "geojson", "manifest.json")
 
 SKIP_TOP = {"Information"}      # wenn das Top ist -> nimm nächsthöheres
 SKIP_GROUPS = {"Unbekannt", "JH"}  # JH-Folder nie als POI-Kategorie werten

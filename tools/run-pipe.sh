@@ -91,7 +91,7 @@ fi
 echo
 echo "STEP 2/4: KMZ → GeoJSON (convert_to_geojson.sh)"
 echo "----------------------------------------"
-bash "${REPO_ROOT}/tools/convert_to_geojson.sh"  --force
+bash "${REPO_ROOT}/tools/convert_to_geojson.sh" 
 
 # ------------------------------
 # STEP 3

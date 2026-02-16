@@ -1,62 +1,75 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FORCE=0
-for arg in "$@"; do
-  case "$arg" in
-    --force) FORCE=1 ;;
-    *) echo "Unknown option: $arg"; exit 1 ;;
-  esac
-done
+ROOT="${HOME}/Desktop/DJH/mobile-jh/mobile-jh"   # dein „1 Ebene tiefer“-Root
+IN="${ROOT}/data/export_kmz"               # oder export_kmz – muss exakt stimmen
+OUT="${ROOT}/data/geojson"          # wenn dein Repo wirklich ROOT/mobile-jh/... ist; sonst unten anpassen
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-
-IN="${REPO_ROOT}/data/export_kmz"
-OUT="${REPO_ROOT}/data/geojson"
-mkdir -p "$OUT"
-
-command -v ogr2ogr >/dev/null || { echo "FEHLER: ogr2ogr fehlt."; exit 3; }
-command -v ogrinfo >/dev/null || { echo "FEHLER: ogrinfo fehlt."; exit 3; }
-
+echo "ROOT=$ROOT"
 echo "IN=$IN"
 echo "OUT=$OUT"
-echo "FORCE=$FORCE"
 
+mkdir -p "$OUT"
 shopt -s nullglob
-for kmz in "$IN"/JH_*_master.kmz; do
-  base="$(basename "$kmz")"
-  nr="$(echo "$base" | sed -E 's/^JH_([0-9]+)_master\.kmz$/\1/')"
+files=( "$IN"/JH_*_master.kmz )
 
-  if [[ -z "$nr" || "$nr" == "$base" ]]; then
-    echo "WARN: Konnte NR nicht lesen: $base"
-    continue
-  fi
+if (( ${#files[@]} == 0 )); then
+  echo "FEHLER: Keine KMZ gefunden: $IN/JH_*_master.kmz"
+  ls -lah "$IN"
+  exit 2
+fi
 
+# Dateien einsammeln (ohne stilles Wegschlucken)
+files=( "$IN"/JH_*_master.kmz )
+if (( ${#files[@]} == 0 )); then
+  echo "FEHLER: Keine KMZ gefunden mit Pattern: $IN/JH_*_master.kmz"
+  echo "Tipp: ls -lah \"$IN\""
+  exit 2
+fi
+
+command -v ogrinfo >/dev/null || { echo "FEHLER: ogrinfo fehlt (GDAL)."; exit 3; }
+command -v ogr2ogr >/dev/null || { echo "FEHLER: ogr2ogr fehlt (GDAL)."; exit 3; }
+command -v python3 >/dev/null || { echo "FEHLER: python3 fehlt."; exit 3; }
+
+list_layers() {
+  ogrinfo -ro -q "$1" 2>/dev/null | awk -F': ' '/^[ ]*[0-9]+: /{print $2}'
+}
+
+for kmz in "${files[@]}"; do
+  nr="$(basename "$kmz" | sed -E 's/^JH_([0-9]+)_master\.kmz$/\1/')"
   out="${OUT}/jh_${nr}.geojson"
 
-  if [[ -f "$out" && "$FORCE" -ne 1 ]]; then
-    echo "SKIP: $out existiert"
-    continue
-  fi
+  echo "Konvertiere $kmz → $(basename "$out")"
 
-  # ersten Layer aus dem KMZ holen (Format: "1: LayerName (Point)")
-  layer="$(
-    ogrinfo -ro -q "$kmz" \
-      | sed -n 's/^[[:space:]]*[0-9]\+:[[:space:]]\([^()]*\).*/\1/p' \
-      | head -n 1 \
-      | sed 's/[[:space:]]*$//'
-  )"
+  tmpdir="$(mktemp -d)"
+  # cleanup nur für diesen Loop-Durchlauf
+  cleanup() { rm -rf "$tmpdir"; }
+  trap cleanup RETURN
 
-  if [[ -z "$layer" ]]; then
-    echo "ERROR: Kein Layer gefunden in $base"
-    exit 4
-  fi
+  i=0
+  while IFS= read -r layer; do
+    [[ -z "$layer" ]] && continue
+    i=$((i+1))
+    part="${tmpdir}/part_${i}.geojson"
 
-  echo "Konvertiere $base (Layer: $layer) → $(basename "$out")"
+    ogr2ogr -f GeoJSON "$part" "$kmz"  \
+      -skipfailures \
+      -dialect SQLITE \
+      -sql "SELECT *, '${layer}' AS category_group FROM \"${layer}\""
+  done < <(list_layers "$kmz")
 
-  rm -f "$out"  # sicher überschreiben, falls FORCE=1 oder halbkaputt
-  ogr2ogr -f GeoJSON "$out" "$kmz" "$layer"
+  python3 - <<'PY' "$tmpdir" "$out"
+import json, sys, glob, os
+tmpdir, out = sys.argv[1], sys.argv[2]
+features = []
+for fn in sorted(glob.glob(os.path.join(tmpdir, "part_*.geojson"))):
+    with open(fn, "r", encoding="utf-8") as f:
+        gj = json.load(f)
+    features.extend(gj.get("features", []))
+fc = {"type":"FeatureCollection", "features": features}
+with open(out, "w", encoding="utf-8") as f:
+    json.dump(fc, f, ensure_ascii=False)
+print(f"Wrote {out} with {len(features)} features")
+PY
 
-  echo "Fertig: $out"
 done
