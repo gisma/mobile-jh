@@ -1,0 +1,352 @@
+Nr;Ort;Name;Straße;PLZ;Telefon
+2;Baden-Baden;Werner-Dietz-Jugendherberge;Hardbergstr. 34;76532 Baden-Baden;+49 7221 52223
+4;Breisach;Jugendherberge Breisach;Rheinstr. 12;79206 Breisach;+49 7667 7665
+7;Feldberg;Jugendherberge Hebelhof;Passhöhe 14;79868 Feldberg;+49 7676 221
+9;Freiburg;Jugendherberge Freiburg International;Kartäuserstr. 151;79104 Freiburg;+49 761 67656
+10;Heidelberg;Jugendherberge Heidelberg International;Tiergartenstr. 5;69120 Heidelberg;+49 6221 651190
+12;Forbach-Herrenwies;Franz-Köbele-Jugendherberge;Herrenwies 33;76596 Forbach-Herrenwies;+49 7226 257
+13;Karlsruhe;Jugendherberge Karlsruhe;Moltkestr. 24;76133 Karlsruhe;+49 721 28248
+14;Kehl;Jugendherberge Kehl;Altrheinweg 11;77694 Kehl;+49 7851 2330
+15;Konstanz;Jugendherberge Otto-Moericke-Turm;Zur Allmannshöhe 16;78464 Konstanz;+49 7531 32260
+16;Lörrach;Helmut-Walser-Jugendherberge;Steinenweg 40;79540 Lörrach;+49 7621 47040
+17;Mannheim;Jugendherberge Mannheim International;Rheinpromenade 21;68163 Mannheim;+49 621 822718
+18;Mosbach-Neckarelz;Jugendherberge Mutschlers Mühle;Zur Alten Mühle 6;74821 Mosbach-Neckarelz;+49 6261 7191
+19;Neckargemünd-Dilsberg;Jugendherberge Dilsberg;Untere Str. 1;69151 Neckargemünd-Dilsberg;+49 6223 972021
+20;Ortenberg;Jugendherberge Schloss Ortenberg;Burgweg 21;77799 Ortenberg;+49 781 31749
+22;Pforzheim-Dillweißenstein;Jugendherberge Rabeneck;Kräheneckstr. 4;75180 Pforzheim-Dillweißenstein;+49 7231 972660
+23;Schluchsee-Seebrugg;Jugendherberge Seebrugg;Seebrugg 9;79859 Schluchsee-Seebrugg;+49 7656 494
+24;Schluchsee-Wolfsgrund;Jugendherberge Wolfsgrund;Im Wolfsgrund 28;79859 Schluchsee-Wolfsgrund;+49 7656 329
+26;St. Blasien-Menzenschwand;Jugendherberge Menzenschwand;Vorderdorfstr. 10;79837 St. Blasien-Menzenschwand;+49 7675 326
+28;Titisee-Neustadt;Jugendherberge Rudenberg;Rudenberg 6;79822 Titisee-Neustadt;+49 7651 7360
+29;Hinterzarten/Titisee;Jugendherberge Veltishof;Bruderhalde 27;79856 Hinterzarten;+49 7652 238
+30;Todtnau-Todtnauberg;Jugendherberge Fleinerhaus;Radschertstr. 12;79674 Todtnau-Todtnauberg;+49 7671 275
+31;Triberg;Jugendherberge Triberg;Rohrbacher Str. 35;78098 Triberg;+49 7722 4110
+32;Überlingen;Martin-Buber-Jugendherberge;Alte Nußdorfer Str. 26;88662 Überlingen;+49 7551 4204
+34;Walldürn;Jugendherberge Walldürn;Auf der Heide 37;74731 Walldürn;+49 6282 283
+39;Altenberg;Jugendherberge Altenberg;Dresdner Str. 76;01773 Altenberg;+49 35056 32318
+41;Augustusburg;Jugendherberge Schloss Augustusburg;Schloss 1;09573 Augustusburg;+49 37291 20256
+43;Bad Lausick;Jugendherberge Bad Lausick;Herzogsweg 2;04651 Bad Lausick;+49 34345 7270
+44;Bad Schandau;Jugendherberge Bad Schandau;Dorfstr. 14;01814 Bad Schandau;+49 35022 42408
+45;Bautzen;Jugendherberge Bautzen „Gerberbastei“;Am Zwinger 1;02625 Bautzen;+49 3591 40347
+49;Dresden;Jugendgästehaus Dresden;Maternistraße 22;01067 Dresden;+49 351 492620
+50;Dresden;Jugendherberge Dresden „Rudi Arndt“;Hübnerstr. 11;01069 Dresden;+49 351 4710667
+52;Dresden-Radebeul;Jugendherberge Dresden-Radebeul;Weintraubenstr. 12;01445 Radebeul;+49 351 8388280
+54;Falkenhain;Jugendherberge Falkenhain „Talsperre Kriebstein“;Talsperrenstr. 16;09648 Mittweida;+49 3727 2952
+55;Frauenstein;Jugendherberge Frauenstein;Walkmühlenstr. 13;09623 Frauenstein;+49 37326 1307
+60;Grumbach;Jugendherberge Grumbach;Jöhstädter Str. 19;09477 Jöhstadt/OT Grumbach;+49 37343 2288
+62;Hormersdorf;Jugendherberge Hormersdorf „Am Greifenbachstauweiher“;Zur Jugendherberge 1a;08297 Zwönitz;+49 37346 1396
+63;Johanngeorgenstadt;Jugendherberge Johanngeorgenstadt;Hospitalstr. 5;08349 Johanngeorgenstadt;+49 3773 882194
+65;Klingenthal;Jugendherberge Klingenthal;Grenzweg 22;08248 Klingenthal;+49 37467 70006
+66;Lößnitz;Jugendherberge Lößnitz;Volksgutstr. 21;08294 Lößnitz;+49 3771 2356
+71;Neudorf;Jugendherberge Neudorf;Am Fichtelberg 1;09465 Sehmatal/OT Neudorf;+49 37342 8282
+82;Strehla;Jugendherberge Strehla;Torgauer Str. 33;01616 Strehla;+49 35264 90330
+89;Taltitz;Jugendherberge Taltitz;Taltitzer Park;08606 Oelsnitz/OT Taltitz;+49 37421 73019
+93;Warmbad;Jugendherberge Warmbad;An der Jugendherberge 6;09429 Wolkenstein/OT Warmbad;+49 37369 9477
+95;Altenberg Windischleuba;Jugendherberge Schloss Windischleuba;Pestalozziplatz 1;04603 Windischleuba;+49 3447 800062
+96;Altenberg-Zinnwald;Jugendherberge Zinnwald;Bergmannsweg 3;01773 Altenberg/OT Zinnwald;+49 35056 3281
+99;Aalen;Schubart-Jugendherberge;Stadionweg 8;73430 Aalen;+49 7361 49203
+100;Bad Urach;Jugendherberge Bad Urach;Seebachstr. 9;72574 Bad Urach;+49 7125 8025
+Nr;Ort;Name;Straße;PLZ;Telefon
+101;Bad Urach;Jugendherberge Bad Urach;Seebachstr. 9;72574 Bad Urach;+49 7125 8025
+103;Biberach;Jugendherberge Biberach;Heusteige 40;88400 Biberach/Riß;+49 7351 21885
+104;Blaubeuren;Jugendherberge Blaubeuren;Auf dem Rucken 69;89143 Blaubeuren;+49 7344 6444
+105;Creglingen;Jugendherberge Creglingen;Erdbacher Str. 30;97993 Creglingen;+49 7933 336
+107;Freudenstadt;Eugen-Nägele-Jugendherberge;Zur Ziegelhütte 69;72250 Freudenstadt;+49 7441 7720
+112;Stuttgart;Jugendherberge Stuttgart International;Haussmannstr. 27;70188 Stuttgart;+49 711 647747-0
+113;Tübingen;Jugendherberge Tübingen;Hermann-Kurz-Str. 4;72074 Tübingen;+49 7071 23002
+114;Leibertingen-Wildenstein;Jugendherberge Burg Wildenstein;88637 Leibertingen;+49 7466 411
+115;Murrhardt;Eugen-Nägele-Jugendherberge;Karnsberger Str. 1;71540 Murrhardt;+49 7192 7501
+117;Ulm;Geschwister-Scholl-Jugendherberge;Grimmelfinger Weg 45;89077 Ulm;+49 731 384455
+118;Friedrichshafen;Graf-Zeppelin-Jugendherberge;Lindauer Str. 3;88046 Friedrichshafen;+49 7541 72404
+119;Sigmaringen;Hohenzollern-Jugendherberge;Hohenzollernstr. 31;72488 Sigmaringen;+49 7571 13277
+122;Sonnenbühl-Erpfingen;Jugendherberge Erpfingen;Auf der Reute 1;72820 Sonnenbühl;+49 7128 1652
+123;Göppingen-Hohenstaufen;Jugendherberge Hohenstaufen;Schottengasse 41;73037 Göppingen;+49 7165 438
+124;Balingen-Lochen;Jugendherberge Lochen;Auf der Lochen 1;72336 Balingen;+49 7433 37383
+125;Ludwigsburg;Jugendherberge Ludwigsburg;Gänsbergstr. 21;71640 Ludwigsburg;+49 7141 51564
+126;Ravensburg;Jugendherberge Veitsburg;Veitsburgstr. 1;88212 Ravensburg;+49 751 25363
+132;Schwäbisch Hall;Jugendherberge Schwäbisch Hall;Langenfelder Weg 5;74523 Schwäbisch Hall;+49 791 41050
+135;Weimar;Jugendherberge Am Ettersberg;Ettersburger Str. 300;99427 Weimar;+49 3643 85000129
+136;Weimar;Jugendherberge Maxim Gorki;Zum Wilden Graben 12;99425 Weimar;+49 3643 85000133
+139;Bad Sulza;Jugendherberge Bad Sulza;August-Bebel-Str. 27;99518 Bad Sulza;+49 3643 8500013
+141;Erfurt;Jugendherberge Medienherberge;Hochheimer Str. 12;99094 Erfurt;+49 3643 85000139
+147;Mühlhausen;Jugendherberge Mühlhausen;Auf dem Tonberg 1;99974 Mühlhausen;+49 3643 85000119
+149;Tambach-Dietharz;Jugendherberge Tambach-Dietharz;Oberhofer Str. 3;99897 Tambach-Dietharz;+49 3643 85000123
+150;Plothen;Jugendherberge Am Hausteich;Hausteichstr. 1;07907 Plothen;+49 3643 85000121
+151;Weimar;Jugendherberge Am Poseckschen Garten;Humboldtstr. 17;99423 Weimar;+49 3643 85000135
+185;Stralsund;Jugendherberge Stralsund;Strandstr. 21;18439 Stralsund;+49 3831 490289
+187;Waren (Müritz);Jugendherberge Waren;An der Feisneck 1;17192 Waren (Müritz);+49 3991 186900
+188;Warnemünde;Jugendherberge Warnemünde;Parkstr. 47;18119 Rostock-Warnemünde;+49 381 548170
+199;Augsburg;Jugendherberge Augsburg;Unterer Graben 6;86152 Augsburg;+49 821 780889-0
+200;Bayrischzell-Sudelfeld;Jugendherberge Sudelfeld;Unteres Sudelfeld 9;83735 Bayrischzell;+49 8023 675
+Nr;Ort;Name;Straße;PLZ;Telefon
+204;Bayrischzell-Sudelfeld;Jugendherberge Sudelfeld;Unteres Sudelfeld 9;83735 Bayrischzell;+49 8023 675
+205;Benediktbeuern;Don-Bosco-Jugendherberge;Don-Bosco-Str. 3;83671 Benediktbeuern;+49 8857 8835-0
+209;Burghausen;Jugendherberge Burghausen;Kapuzinergasse 235;84489 Burghausen;+49 8677 8817910
+211;Dachau;Jugendherberge Dachau;Roßwachtstr. 15;85221 Dachau;+49 8131 32295-0
+212;Dinkelsbühl;Jugendherberge Dinkelsbühl;Koppengasse 10;91550 Dinkelsbühl;+49 9851 5566-417
+215;Eichstätt;Jugendherberge Eichstätt;Reichenau 15;85072 Eichstätt;+49 8421 9804-10
+219;Furth im Wald;Jugendherberge Furth im Wald;Daberger Str. 50;93437 Furth im Wald;+49 9973 9254
+220;Füssen;Jugendherberge Füssen;Mariahilferstr. 5;87629 Füssen;+49 8362 7754
+221;Garmisch-Partenkirchen;Jugendherberge Garmisch-Partenkirchen;Jochstr. 10;82467 Garmisch-Partenkirchen;+49 8821 96705-0
+224;Gunzenhausen am Altmühlsee;Jugendherberge Gunzenhausen;Spitalstr. 3;91710 Gunzenhausen;+49 9831 6702-0
+230;Ingolstadt;Jugendherberge Ingolstadt;Friedhofstr. 4 1/2;85049 Ingolstadt;+49 841 305128-0
+234;Kreuth-Scharling;Jugendherberge Kreuth;Nördliche Hauptstr. 91;83708 Kreuth am Tegernsee;+49 8029 9956-0
+239;Lenggries;Jugendherberge Lenggries;Jugendherbergstr. 10;83661 Lenggries;+49 8042 2424
+241;Lindau;Jugendherberge Lindau;Herbergsweg 11;88131 Lindau;+49 8382 9671-0
+246;Mittenwald;Jugendherberge Mittenwald;Buckelwiesen 7;82481 Mittenwald;+49 8823 1701
+247;Mühldorf a. Inn;Jugendherberge Mühldorf;Friedrich-Ludwig-Jahn-Str. 19;84453 Mühldorf a. Inn;+49 8631 7370
+248;München-City;Jugendherberge München-City;Winthirplatz 8;80639 München;+49 89 202449-0
+249;München-Park;Jugendherberge München-Park;Miesingstr. 4;81379 München;+49 89 7857677-0
+251;Neuschönau-Waldhäuser;Jugendherberge Neuschönau;Herbergsweg 2;94556 Neuschönau;+49 8553 6000
+253;Nürnberg;Jugendherberge Nürnberg;Burg 2;90403 Nürnberg;+49 911 230936-0
+254;Oberammergau;Jugendherberge Oberammergau;Malensteinweg 10;82487 Oberammergau;+49 8822 4114
+255;Oberstdorf-Kornau;Jugendherberge Oberstdorf;Kornau 8;87561 Oberstdorf;+49 8322 9875-0
+257;Ottobeuren;Jugendherberge Ottobeuren;Kaltenbrunnenweg 11;87724 Ottobeuren;+49 8332 368
+258;Passau;Jugendherberge Passau;Oberhaus 125;94034 Passau;+49 851 49378-0
+259;Pottenstein;Jugendherberge Pottenstein;Jugendherbergstr. 20;91278 Pottenstein;+49 9243 9291-0
+261;Pullach;Jugendherberge Pullach;Burg Schwaneck;82049 Pullach;+49 89 744866-70
+262;Regensburg;Jugendherberge Regensburg;Wöhrdstr. 60;93059 Regensburg;+49 941 466283-0
+263;Rothenburg ob der Tauber;Jugendherberge Rothenburg;Mühlacker 1;91541 Rothenburg ob der Tauber;+49 9861 9416-0
+264;Rothenfels;Jugendherberge Burg Rothenfels;Bergrothenfelser Str. 71;97851 Rothenfels;+49 9393 99999-0
+265;Saldenburg;Jugendherberge Saldenburg;Ritter-Tuschl-Str. 20;94163 Saldenburg;+49 8504 1655
+266;Schliersee;Jugendherberge Schliersee;Josefstaler Str. 19;83727 Schliersee;+49 8026 9738-0
+267;Schweinfurt;Jugendherberge Schweinfurt;Am Unteren Marienbach 3;97421 Schweinfurt;+49 9721 675295-0
+268;Spalt-Wernfels;Jugendherberge Burg Wernfels;Burgweg 7-9;91174 Spalt;+49 9873 976120
+273;Trausnitz;Jugendherberge Burg Trausnitz;Burggasse 2;92555 Trausnitz;+49 9655 9215-0
+274;Walchensee;Jugendherberge Walchensee;Urfeld 17;82432 Walchensee;+49 8851 230
+277;Falkenberg-Tannenlohe;Jugendherberge Tannenlohe;Tannenlohe 1;95685 Falkenberg;+49 9637 267
+280;Wunsiedel;Jugendherberge Wunsiedel;Am Katharinenberg 4;95632 Wunsiedel;+49 9232 91560-0
+281;Würzburg;Jugendherberge Würzburg;Fred-Joseph-Platz 2;97082 Würzburg;+49 931 467786-0
+288;Bispingen;Jugendherberge Bispingen;Töpinger Str. 42;29646 Bispingen;+49 5194 2375
+290;Braunlage;Jugendherberge Braunlage;Von-Langen-Str. 28;38700 Braunlage;+49 5520 2238
+293;Bad Fallingbostel;Jugendherberge Bad Fallingbostel;Lietweg 1;29683 Bad Fallingbostel;+49 5162 2274
+294;Goslar;Jugendherberge Goslar;Rammelsberger Str. 25;38644 Goslar;+49 5321 22240
+295;Göttingen;Jugendherberge Göttingen;Habichtweg 2;37075 Göttingen;+49 551 57622
+297;Hahnenklee;Jugendherberge Hahnenklee;Hahnenkleer Str. 11;38644 Goslar;+49 5325 2256
+298;Hameln;Jugendherberge Hameln;Fischbecker Str. 33;31785 Hameln;+49 5151 3425
+299;Hankensbüttel;Jugendherberge Hankensbüttel;Helmrichsweg 24;29386 Hankensbüttel;+49 5832 2500
+300;Hann. Münden;Jugendherberge Hann. Münden;Prof.-Oelkers-Str. 10;34346 Hann. Münden;+49 5541 8853
+Nr;Ort;Name;Straße;PLZ;Telefon
+301;Hannover International;Jugendherberge Hannover International;Ferdinand-Wilhelm-Fricke-Weg 1;30169 Hannover;+49 511 1317674
+302;Hildesheim;Jugendherberge Hildesheim;An der Scharlake 39;31135 Hildesheim;+49 5121 21577
+304;Lingen;Jugendherberge Lingen;Lindenstr. 33;49808 Lingen (Ems);+49 591 61067
+306;Lüneburg;Jugendherberge Lüneburg;Soltauer Str. 133;21335 Lüneburg;+49 4131 41864
+308;Meppen;Jugendherberge Meppen;Helter Damm 1;49716 Meppen;+49 5931 88203
+309;Norderney;Jugendherberge Norderney;Mühlenstr. 1;26548 Norderney;+49 4932 2341
+310;Norddeich;Jugendherberge Norddeich;Strandstr. 1;26506 Norden;+49 4931 97200
+312;Oldenburg;Jugendherberge Oldenburg;Straßburger Str. 6;26123 Oldenburg;+49 441 87135
+313;Osnabrück;Jugendherberge Osnabrück;Iburger Str. 183;49082 Osnabrück;+49 541 54284
+315;Papenburg;Jugendherberge Papenburg;Splitting rechts 32;26871 Papenburg;+49 4961 3322
+317;Rotenburg (Wümme);Jugendherberge Rotenburg;Verdener Str. 47;27356 Rotenburg (Wümme);+49 4261 3083
+318;Schillighörn;Jugendherberge Schillighörn;Mellumweg 1;26434 Wangerland;+49 4463 414
+319;Stade;Jugendherberge Stade;Bremervörder Str. 101;21682 Stade;+49 4141 3131
+320;Uelzen;Jugendherberge Uelzen;Hannoversche Str. 31;29525 Uelzen;+49 581 2121
+321;Vechta;Jugendherberge Vechta;Antonstr. 1;49377 Vechta;+49 4441 81133
+322;Verden;Jugendherberge Verden;Am Moor 10;27283 Verden (Aller);+49 4231 3300
+323;Wilhelmshaven;Jugendherberge Wilhelmshaven;Rüstersieler Str. 58;26386 Wilhelmshaven;+49 4421 22273
+324;Wolfsburg;Jugendherberge Wolfsburg;Unter den Eichen 55;38446 Wolfsburg;+49 5361 54882
+326;Bad Bentheim;Jugendherberge Bad Bentheim;An der Jugendherberge 1;48455 Bad Bentheim;+49 5922 99010
+327;Bad Driburg;Jugendherberge Bad Driburg;Brunnenstr. 4;33014 Bad Driburg;+49 5253 93230
+328;Bad Honnef;Jugendherberge Bad Honnef;Selhofer Str. 106;53604 Bad Honnef;+49 2224 93070
+329;Bad Münstereifel;Jugendherberge Bad Münstereifel;Herbergsweg 1;53902 Bad Münstereifel;+49 2253 5420
+330;Bielefeld;Jugendherberge Bielefeld;Hermann-Kleinewächter-Str. 1;33602 Bielefeld;+49 521 175990
+331;Bonn;Jugendherberge Bonn;Haager Weg 42;53127 Bonn;+49 228 289970
+332;Burg Monschau;Jugendherberge Burg Monschau;Auf dem Schloss 4;52156 Monschau;+49 2472 97050
+333;Detmold;Jugendherberge Detmold;Schirrmannstr. 49;32756 Detmold;+49 5231 24777
+334;Dortmund;Jugendherberge Dortmund;Silberstr. 24-26;44137 Dortmund;+49 231 140074
+335;Duisburg Sportpark;Jugendherberge Duisburg Sportpark;Kruppstr. 9;47055 Duisburg;+49 203 7383110
+336;Düsseldorf;Jugendherberge Düsseldorf;Düsseldorfer Str. 1;40545 Düsseldorf;+49 211 557310
+337;Essen;Jugendherberge Essen;Pastoratsberg 2;45239 Essen;+49 201 491163
+338;Gelsenkirchen;Jugendherberge Gelsenkirchen;Adenauerallee 103;45891 Gelsenkirchen;+49 209 9521410
+339;Hagen;Jugendherberge Hagen;Eppenhauser Str. 65;58093 Hagen;+49 2331 72849
+340;Haltern am See;Jugendherberge Haltern;Stockwieser Damm 25;45721 Haltern am See;+49 2364 93330
+341;Hattingen;Jugendherberge Hattingen;Henschelstr. 6;45525 Hattingen;+49 2324 91560
+342;Hellenthal;Jugendherberge Hellenthal;Kölner Str. 7;53940 Hellenthal;+49 2482 91390
+343;Kleve;Jugendherberge Kleve;St.-Anna-Str. 46;47533 Kleve;+49 2821 71330
+344;Köln-Deutz;Jugendherberge Köln-Deutz;Siegesstr. 5;50679 Köln;+49 221 814711
+345;Köln-Riehl;Jugendherberge Köln-Riehl;An der Schanz 14;50735 Köln;+49 221 9765130
+346;Krefeld;Jugendherberge Krefeld;Uerdinger Str. 627;47800 Krefeld;+49 2151 52880
+347;Mönchengladbach;Jugendherberge Mönchengladbach;Kreuzherrenstr. 5;41061 Mönchengladbach;+49 2161 17800
+348;Münster;Jugendherberge Münster;Bismarckallee 31;48151 Münster;+49 251 5301330
+349;Nideggen;Jugendherberge Nideggen;Burg 1;52385 Nideggen;+49 2427 90500
+350;Paderborn;Jugendherberge Paderborn;Meinolfstr. 36;33102 Paderborn;+49 5251 34310
+351;Ratingen;Jugendherberge Ratingen;Lintorfer Weg 18;40885 Ratingen;+49 2102 94250
+352;Rheine;Jugendherberge Rheine;Auf dem Thie 5;48431 Rheine;+49 5971 92660
+353;Soest;Jugendherberge Soest;Bergenthalpark 1;59494 Soest;+49 2921 13881
+354;Wuppertal;Jugendherberge Wuppertal;Obere Lichtenplatzer Str. 70;42287 Wuppertal;+49 202 552372
+355;Xanten;Jugendherberge Xanten;Bankscher Weg 4;46509 Xanten;+49 2801 71130
+356;Bad Berleburg;Jugendherberge Bad Berleburg;Astenstr. 10;57319 Bad Berleburg;+49 2751 80130
+357;Biggesee;Jugendherberge Biggesee;Am Sonderner Kopf 3;57462 Olpe;+49 2761 94410
+358;Brilon;Jugendherberge Brilon;Hölsterloh 1;59929 Brilon;+49 2961 2020
+359;Herscheid;Jugendherberge Herscheid;Am Rahlenberg 7;58849 Herscheid;+49 2357 1726
+360;Hochsauerland;Jugendherberge Winterberg;Am Waltenberg 30;59955 Winterberg;+49 2981 2280
+Nr;Ort;Name;Straße;PLZ;Telefon
+401;Dahn;Felsenland-Jugendherberge;Am Wachtfelsen 1;66994 Dahn;+49 6391 1769
+402;Daun;Eifelmaar-Jugendherberge;Maria-Hilf-Straße 21;54550 Daun;+49 6592 2884
+403;Diez;Grafenschloss-Jugendherberge;Schloßberg 8;65582 Diez;+49 6432 2481
+404;Dreisbach-Mettlach;Jugendherberge an der Saarschleife;Herbergstraße 1;66693 Dreisbach-Mettlach;+49 6868 270
+405;Gerolstein;Eifelsteig-Jugendherberge;Zur Büschkapelle 1;54568 Gerolstein;+49 6591 4745
+406;Hermeskeil;Hunsrück-Jugendherberge;Adolf-Kolping-Straße 4;54411 Hermeskeil;+49 6503 3097
+407;Hochspeyer;Pfälzerwald-Jugendherberge;Trippstadter Straße 150;67691 Hochspeyer;+49 6305 336
+409;Idar-Oberstein;Nahe-Hunsrück-Jugendherberge;Alte Treibe 23;55743 Idar-Oberstein;+49 6781 24366
+410;Koblenz;Jugendherberge Festung Ehrenbreitstein;;56077 Koblenz;+49 261 972870
+411;Mainz;Rhein-Main-Jugendherberge;Otto-Brunfels-Schneise 4;55130 Mainz;+49 6131 85332
+412;Manderscheid;Vulkaneifel-Jugendherberge;Mosenbergstraße 17;54531 Manderscheid;+49 6572 557
+413;Mayen;Vulkanpark-Jugendherberge;Am Knüppchen 5;56727 Mayen;+49 2651 2355
+417;Neustadt/Weinstraße;Pfalz-Jugendherberge;Hans-Geiger-Straße 27;67434 Neustadt;+49 6321 2289
+418;Oberwesel;Rheintal-Jugendherberge;Auf dem Schönberg;55430 Oberwesel;+49 6744 93330
+419;Prüm;Eifel-Jugendherberge;Kalvarienbergstraße 5;54595 Prüm;+49 6551 2500
+420;Saarbrücken;Europa-Jugendherberge;Meerwiesertalweg 31;66123 Saarbrücken;+49 681 33040
+421;Saarburg;Saarblick-Jugendherberge;Bottelter Straße 8;54439 Saarburg;+49 6581 2555
+423;Speyer;Kurpfalz-Jugendherberge;Geibstraße 5;67346 Speyer;+49 6232 61597
+424;St. Goar;Loreley-Jugendherberge;Bismarckweg 17;56329 St. Goar;+49 6741 388
+427;Thallichtenberg;Jugendherberge Burg Lichtenberg;Burgstraße 12;66871 Thallichtenberg;+49 6381 2632
+428;Tholey;Schaumberg-Jugendherberge;Am Schaumberg;66636 Tholey;+49 6853 2271
+429;Traben-Trarbach;Mosel-Jugendherberge;Hirtenpfad 6;56841 Traben-Trarbach;+49 6541 9278
+430;Trier;Römerstadt-Jugendherberge;An der Jugendherberge 4;54292 Trier;+49 651 146620
+431;Weiskirchen;Hochwald-Jugendherberge;Jugendherbergstraße 12;66709 Weiskirchen;+49 6876 231
+432;Wolfstein;Königsland-Jugendherberge;Röther Weg 24;67752 Wolfstein;+49 6304 1408
+433;Worms;Rheinhessen-Jugendherberge;Dechaneigasse 1;67547 Worms;+49 6241 25780
+434;Aachen;Euregionales Jugendgästehaus;Maria-Theresia-Allee 260;52074 Aachen;+49 241 71101-0
+435;Bad Honnef;Jugendherberge Bad Honnef;Selhofer Str. 106;53604 Bad Honnef;+49 2224 98981-0
+436;Bad Münstereifel;Jugendherberge Bad Münstereifel;Herbergsweg 1–5;53902 Bad Münstereifel;+49 2253 54174-0
+437;Blankenheim;Jugendherberge Burg Blankenheim;Burg 1;53945 Blankenheim;+49 2449 9509-0
+438;Bonn;Jugendherberge Bonn;Haager Weg 42;53127 Bonn;+49 228 289970
+441;Düsseldorf;City-Hostel;Düsseldorfer Str. 1;40545 Düsseldorf;+49 211 557310
+443;Essen;Jugendherberge Essen;Pastoratsberg 2;45239 Essen;+49 201 125832-0
+444;Gemünd Vogelsang;Jugendherberge Nationalpark Eifel;Im Wingertchen 9;53937 Schleiden;+49 2444 91492-0
+445;Hellenthal;Jugendherberge für Erlebnispädagogik;Platis 3;53940 Hellenthal;+49 2482 12562-0
+446;Nettetal-Hinsbeck;Zirkus-Jugendherberge;Heide 1;41334 Nettetal-Hinsbeck;+49 2153 95172-0
+449;Kleve;St. Annaberg;St. Annaberg 2;47533 Kleve;+49 2821 891450
+450;Köln-Deutz;City-Hostel;Siegesstr. 5;50679 Köln;+49 221 814711
+451;Köln-Riehl;City-Hostel;An der Schanz 14;50735 Köln;+49 221 976513-0
+453;Lindlar;Jugendherberge Lindlar;Jugendherberge 30;51789 Lindlar;+49 2266 47844-0
+454;Mönchengladbach;Jugendherberge Hardter Wald;Brahmsstr. 156;41169 Mönchengladbach;+49 2161 56090-0
+455;Monschau;Jugendherberge Burg Monschau;Auf dem Schloß 4;52156 Monschau;+49 2472 97039-0
+456;Monschau-Hargard;Jugendherberge Hargard;Hargardsgasse 5;52156 Monschau;+49 2472 97047-0
+459;Neuss-Uedesheim;Jugendherberge Neuss;Macherscheider Str. 109;41468 Neuss;+49 2131 71875-0
+461;Radevormwald;Jugendherberge Radevormwald;Telegrafenstr. 50;42477 Radevormwald;+49 2195 6888-11
+462;Ratingen;Jugendherberge Ratingen;Götschenbeck 8;40882 Ratingen;+49 2102 2040-0
+463;Windeck-Rosbach;Wald-Jugendherberge;Herbergstr. 19;51570 Windeck;+49 2292 95626-0
+464;Simmerath-Rurberg;Jugendherberge für Natur- und Abenteuersport;Jugendherberge 1;52152 Simmerath;+49 2473 93871-0
+466;Velbert;Jugendherberge Velbert;Am Buschberg 17;42549 Velbert;+49 2051 84317
+467;Wiehl;Wellness-Jugendherberge;An der Krähenhardt 6;51674 Wiehl;+49 2262 72777-0
+468;Wipperfürth;Sport-Jugendherberge;Ostlandstr. 34;51688 Wipperfürth;+49 2267 65973-0
+469;Wuppertal;Jugendherberge Wuppertal;Obere Lichtenplatzer Str. 70;42287 Wuppertal;+49 202 281576-0
+470;Bad Homburg;Jugendherberge Bad Homburg;Mühlweg 17;61348 Bad Homburg;+49 6172 23950
+471;Helmarshausen;Jugendherberge Helmarshausen;Gottesbürener Str. 15;34385 Bad Karlshafen;+49 5672 1027
+473;Biedenkopf;Jugendherberge Biedenkopf;Am Freibad 15;35216 Biedenkopf;+49 6461 5100
+474;Burg Breuberg;Jugendherberge Burg Breuberg;Burg Breuberg;64747 Breuberg im Odenwald;+49 6165 3403
+475;Büdingen;Jugendherberge Büdingen;Richard-Schirrmann-Weg 1;63654 Büdingen;+49 6042 3697
+476;Darmstadt;Jugendherberge Darmstadt;Landgraf-Georg-Str. 119;64287 Darmstadt;+49 6151 45293
+477;Erbach;Jugendherberge Erbach;Eulbacher Str. 33;64711 Erbach;+49 6062 3515
+478;Eschwege;Jugendherberge Eschwege;Jardin-de-Saint-Mandé 1;37269 Eschwege;+49 5651 60099
+479;Frankfurt/Main;Jugendherberge Frankfurt;Deutschherrnufer 12;60594 Frankfurt/Main;+49 69 6100150
+480;Fulda;Jugendherberge Fulda;Schirrmannstr. 31;36041 Fulda;+49 661 73389
+481;Gersfeld/Rhön;Jugendherberge Gersfeld;Jahnstr. 6;36129 Gersfeld;+49 6654 340
+483;Grävenwiesbach;Jugendherberge Grävenwiesbach;Hasselborner Str. 20;61279 Grävenwiesbach;+49 6086 520
+484;Starkenburg;Jugendherberge Starkenburg;Starkenburgweg 53;64646 Heppenheim;+49 6252 77323
+486;Oberbernhards;Jugendherberge Oberbernhards;Oberbernhards 5;36115 Hilders-Oberbernhards;+49 6657 240
+488;Hohe Fahrt am Edersee;Jugendherberge Hohe Fahrt;Hohe Fahrt 1;34516 Vöhl-Asel;+49 5635 251
+489;Kassel;Jugendherberge Kassel;Schenkendorfstr. 18;34119 Kassel;+49 561 776455
+490;Korbach;Jugendherberge Korbach;Enser Str. 9;34497 Korbach;+49 5631 8360
+492;Lauterbach;Jugendherberge Lauterbach;Fritz-Ebel-Allee 50;36341 Lauterbach;+49 6641 2181
+495;Marburg;Jugendherberge Marburg;Jahnstr. 1;35037 Marburg;+49 6421 23461
+497;Rotenburg an der Fulda;Jugendherberge Rotenburg;Obertor 17;36199 Rotenburg an der Fulda;+49 6623 2792
+499;Oberreifenberg;Jugendherberge Oberreifenberg;Limesstr. 14;61389 Schmitten-Oberreifenberg;+49 6082 2440
+500;Hoherodskopf;Jugendherberge Hoherodskopf;Am Hoherodskopf 1;63679 Schotten;+49 6044 2760
+Nr;Ort;Name;Straße;PLZ;Telefon
+502;Waldeck am Edersee;Jugendherberge Waldeck;Klippenberg 3;34513 Waldeck;+49 5623 5313
+504;Wetzlar;Jugendherberge Wetzlar;Richard-Schirrmann-Str. 3;35578 Wetzlar;+49 6441 67905-0
+505;Wiesbaden;Jugendherberge Wiesbaden;Blücherstr. 66–68;65195 Wiesbaden;+49 611 48657
+506;Willingen;Jugendherberge Willingen;Am Lukasheim 9–12;34508 Willingen-Schwalefeld;+49 5632 6347
+511;Bad Segeberg;Jugendherberge Bad Segeberg;Kastanienweg 1;23795 Bad Segeberg;+49 4551 2531
+512;Borgwedel;Jugendherberge Borgwedel;Kreisstr. 17;24857 Borgwedel;+49 4354 219
+513;Fehmarn;Jugendherberge Fehmarn;Mathildenstr. 34;23769 Fehmarn;+49 4371 2150
+514;Büsum;Jugendherberge Büsum;Dr.-Martin-Bahr-Str. 1;25761 Büsum;+49 4834 93371
+515;Cuxhaven-Duhnen;Jugendherberge Cuxhaven-Duhnen;Schlensenweg 2;27476 Cuxhaven-Duhnen;+49 4721 48552
+516;Eckernförde;Jugendherberge Eckernförde;Sehestedter Str. 27;24340 Eckernförde;+49 4351 2154
+518;Flensburg;Jugendherberge Flensburg;Fichtestr. 16;24943 Flensburg;+49 461 37742
+519;Friedrichstadt;Jugendherberge Friedrichstadt;Ostdeutsche Str. 1;25840 Friedrichstadt;+49 4881 936261
+520;Geesthacht;Jugendherberge Geesthacht;Berliner Str. 117;21502 Geesthacht;+49 4152 2356
+522;Hamburg „Horner Rennbahn“;Jugendherberge Hamburg Horner Rennbahn;Rennbahnstr. 100;22111 Hamburg;+49 40 5701590
+523;Hamburg „Auf dem Stintfang“;Jugendherberge Hamburg Stintfang;Alfred-Wegener-Weg 5;20459 Hamburg;+49 40 5701590
+524;Heide;Jugendherberge Heide;Poststr. 4;25746 Heide;+49 481 71575
+525;Helgoland „Haus der Jugend“;Jugendherberge Helgoland;Postfach 580;27487 Helgoland;+49 4725 341
+526;Hörnum auf Sylt;Jugendherberge Hörnum;Friesenplatz 2;25997 Hörnum/Sylt;+49 4651 880294
+527;Husum;Jugendherberge Husum;Schobüller Str. 34;25813 Husum;+49 4841 2714
+530;Kappeln;Jugendherberge Kappeln;Eckernförder Str. 2;24376 Kappeln;+49 4642 8550
+531;Kiel;Jugendherberge Kiel;Johannestr. 1;24143 Kiel;+49 431 731488
+532;Lauenburg;Jugendherberge Lauenburg;Am Sportplatz 7;21481 Lauenburg;+49 4153 2598
+534;List auf Sylt;Jugendherberge List;Mövenberg;25992 List/Sylt;+49 4651 870397
+535;Lübeck „Altstadt“;Jugendherberge Lübeck Altstadt;Mengstr. 33;23552 Lübeck;+49 451 7020399
+536;Lübeck „Vor dem Burgtor“;Jugendherberge Lübeck Burgtor;Am Gertrudenkirchhof 4;23568 Lübeck;+49 451 33433
+537;Bad Malente;Jugendherberge Bad Malente;Kellerseestr. 48;23714 Malente-Gremsmühlen;+49 4523 1723
+538;Mölln;Jugendherberge Mölln;Am Ziegelsee 2;23879 Mölln;+49 4542 2601
+539;Neumünster;Jugendherberge Neumünster;Gartenstr. 32;24534 Neumünster;+49 4321 419960
+542;Otterndorf;Jugendherberge Otterndorf;Schleusenstr. 1–7;21762 Otterndorf;+49 4751 3165
+543;Plön;Jugendherberge Plön;Ascheberger Str. 67;24306 Plön;+49 4522 2576
+551;Stade;Jugendherberge Stade;Kehdinger Mühren 11;21682 Stade;+49 4141 46368
+552;Tönning;Jugendherberge Tönning;Badallee 28;25832 Tönning;+49 4861 1280
+554;Westensee;Jugendherberge Westensee;Am See 24;24259 Westensee;+49 4305 542
+555;Wingst;Jugendherberge Wingst;Molkereistr. 11;21789 Wingst;+49 4778 262
+556;Wittdün auf Amrum;Jugendherberge Wittdün;Mittelstr. 1;25946 Wittdün/Amrum;+49 4682 2010
+557;Wyk auf Föhr;Jugendherberge Wyk;Fehrstieg 41;25938 Wyk auf Föhr;+49 4681 2355
+558;Rotenburg (Wümme);Jugendherberge Rotenburg;Verdener Str. 104;27356 Rotenburg (Wümme);+49 4261 83041
+560;Leer;Südsee-Jugendherberge;Süderstr.;26789 Leer;+49 491 28127
+563;Juist;Jugendherberge Juist;Loogster Pad 20;26571 Juist;+49 4935 92910
+565;Wangerooge;Jugendherberge Wangerooge;Westturm;26486 Wangerooge;+49 4469 439
+566;Norddeich;Jugendherberge Norddeich;Strandstr. 1;26506 Norden-Norddeich;+49 4931 8064
+570;Worpswede;Jugendherberge Worpswede;Hammeweg 2;27726 Worpswede;+49 4792 1360
+575;Osnabrück;Jugendherberge Osnabrück;Iburger Str. 183a;49082 Osnabrück;+49 541 54284
+576;Bad Bentheim;Jugendherberge Bad Bentheim;Am Wasserturm 34;48455 Bad Bentheim;+49 5922 2480
+578;Bremen;Jugendherberge Bremen;Kalkstr. 6;28195 Bremen;+49 421 163820
+581;Emden;Jugendherberge Emden;Thorner Str. 3;26725 Emden;+49 4921 23797
+584;Langeoog;Jugendherberge Langeoog „Domäne Melkhörn“;;26465 Langeoog;+49 4972 276
+585;Esens-Bensersiel;Jugendherberge Bensersiel;Grashaus Flage 2;26427 Esens-Bensersiel;+49 4971 3717
+586;Borkum;Jugendherberge Borkum;Reedestr. 231;26757 Borkum;+49 4922 579
+588;Norderney Dünensender;Jugendherberge Norderney;Am Dünensender 3;26548 Norderney;+49 4932 2574
+592;Thülsfelder Talsperre;Jugendherberge Thülsfelder Talsperre;Am Campingplatz 7;49681 Garrel-Petersfeld;+49 4495 9275600
+593;Lingen;Jugendherberge Lingen;Lengericher Str. 62;49811 Lingen/Ems;+49 591 973060
+599;Schillighörn;Jugendherberge Schillighörn;Inselstr. 6;26434 Wangerland-Schillig;+49 4426 371
+Nr;Ort;Name;Straße;PLZ;Telefon
+602;Bad Zwischenahn;Jugendherberge Bad Zwischenahn;Schirrmannweg 14;26160 Bad Zwischenahn;+49 4403 2393
+603;Verden (Aller);Jugendherberge Verden;Saumurplatz 2;27283 Verden (Aller);+49 4231 61163
+604;Damme;Jugendherberge Damme;Neuer Jugendherbergsweg 2;49401 Damme;+49 5491 96720
+605;Bad Saarow;Jugendherberge Bad Saarow;Dorfstr. 20;15526 Bad Saarow;+49 33631 2664
+609;Burg (Spreewald);Jugendherberge Burg;Jugendherbergsweg 8;03096 Burg (Spreewald);+49 35603 225
+611;Cottbus;Jugendherberge Cottbus;Klosterplatz 2–3;03046 Cottbus;+49 355 22558
+612;Berlin – Am Wannsee;Jugendherberge Am Wannsee;Badeweg 1;14129 Berlin;+49 30 8032034
+613;Berlin-International;Jugendherberge Berlin International;Kluckstr. 3;10785 Berlin;+49 30 747687910
+614;Bremsdorfer Mühle;Jugendherberge Bremsdorfer Mühle;Bremsdorfer Mühle 1;15890 Schlaubetal OT Bremsdorf;+49 33654 272
+615;Berlin – Ernst Reuter;Jugendherberge Ernst Reuter;Hermsdorfer Damm 48–50;13467 Berlin;+49 30 4041610
+616;Liepnitzsee;Jugendherberge Liepnitzsee;Wandlitzer Str. 6;16348 Wandlitz;+49 33397 21659
+618;Prebelow;Jugendherberge Prebelow;Prebelow 2;16831 Rheinsberg;+49 33921 70222
+619;Köriser See;Jugendherberge Köriser See;Am Kleinköriser See 5;15746 Groß Köris;+49 33766 62730
+620;Köthener See;Jugendherberge Köthener See;Dorfstr. 20;15748 Märkisch Buchholz;+49 33765 80555
+621;Lübben;Jugendherberge Lübben;Zum Wendenfürsten 8;15907 Lübben;+49 3546 3046
+622;Milow;Jugendherberge Milow – Carl Bolle;Friedenstr. 21;14715 Milower Land;+49 3386 280361
+623;Wandlitz;Jugendherberge Wandlitz;Prenzlauer Chaussee 146;16348 Wandlitz;+49 33397 22109
+626;Bielefeld;Jugendherberge Bielefeld;Hermann-Kleinewächter-Str. 1;33602 Bielefeld;+49 521 52205-0
+627;Alfsee;Jugendherberge Alfsee;Westerfeldstr. 72;49597 Rieste-Alfsee;+49 5464 9208-0
+629;Wernigerode;Jugendherberge Wernigerode;Am Eichberg 5;38855 Wernigerode;+49 3943 606176
+631;Wismar;Jugendherberge Wismar;Juri-Gagarin-Ring 30a;23966 Wismar;+49 3841 32680
+632;Greifswald;Jugendherberge Greifswald;Pestalozzistr. 11/12;17489 Greifswald;+49 3834 51690
+637;Duisburg Landschaftspark;Jugendherberge Duisburg Landschaftspark;Lösorter Str. 133;47137 Duisburg;+49 203 41790-0
+638;Meppen;Jugendherberge Meppen;Helter Damm 1;49716 Meppen;+49 5931 8838780
+639;Niebüll;Jugendherberge Niebüll;Mühlenstr. 65;25899 Niebüll;+49 4661 937890
+640;Maasholm;Selbstversorgerhaus Exhof;Exhof, Seeberg 1;24404 Maasholm;+49 4642 95840
+643;Possenhofen;Jugendherberge Possenhofen;Kurt-Stieler-Str. 18;82343 Pöcking;+49 8157 9966-11
+644;Kelbra;Jugendherberge Kelbra;Forsthaus 90a;06537 Kelbra;+49 34651 55890
+645;Bad Kissingen „Der Heiligenhof“;Jugendgästehaus Der Heiligenhof;Alte Euerdorfer Str. 1;97688 Bad Kissingen;+49 971 7147-0
+646;Ravensbrück;Jugendherberge Ravensbrück;Straße der Nationen 3;16798 Fürstenberg/Havel;+49 33093 60590
+656;Berchtesgaden;Jugendherberge Berchtesgaden;Struberberg 6;83483 Bischofswiesen;+49 8652 9437-0
+658;Erfurt;Jugendherberge Medienherberge;Klingenstr. 4;99094 Erfurt;+49 361 56267-05
+667;Westerland auf Sylt;Jugendherberge Westerland;Lorens-de-Hahn-Str. 44–46;25980 Westerland/Sylt;+49 4651 8357825
+668;Xanten;Jugendherberge Xanten;Bankscher Weg 4;46509 Xanten;+49 2801 9850-0
+669;Wirberg;Jugendherberge Wirberg;Sessenreuther Str. 31;95339 Wirberg;+49 9227 6432
+670;Sellin;Jugendherberge Sellin;Kiefernweg 4;18586 Ostseebad Sellin;+49 38303 95099
+671;Potsdam;Jugendherberge Potsdam;Schulstr. 9;14482 Potsdam;+49 331 5813-100
+672;Scharbeutz;Jugendherberge Scharbeutz;Strandallee 98;23683 Scharbeutz;+49 4503 72090
+678;Homburg;Hohenburg-Jugendherberge;Am Mühlgraben 30;66424 Homburg;+49 6841 3679
+684;Jever;Jugendherberge Jever;Dr.-Fritz-Blume-Weg 4;26441 Jever;+49 4461 909202
