@@ -67,17 +67,22 @@ mobile-jh/
  │    ├── jh_13.geojson
  │    ├── jh_578.geojson
  │    └── ...
+ ├── tools/ 
 ```
 
 ---
 
-## 🧑‍💻 Für Entwickler (optional)
+## 🧑‍💻 Hintergrund
 
-* Frontend: Leaflet + MarkerCluster
-* Datenformat: GeoJSON
-* Lazy Loading pro Jugendherberge
-* GitHub Pages kompatibel
-* Fingerübung für eine gemischte Pipline
+Frontend auf Basis von Leaflet mit MarkerCluster
+
+Datenbereitstellung im GeoJSON-Format
+
+Lazy Loading der POI-Daten pro Jugendherberge zur Reduktion der initialen Datenmenge
+
+Vollständig GitHub Pages kompatibel (statisches Hosting)
+
+Umsetzung als modulare, gemischte Pipeline (R, GDAL, Python, Shell) zur klaren Trennung von Transformation, Konvertierung, Aggregation und Veröffentlichung
 
 ---
 
