@@ -46,10 +46,6 @@ Es ist **keine App-Installation nötig**.
 
 ---
 
-Hier die zusammengeführte, klare und einfache Fassung:
-
----
-
 ## 🛠️ Technischer Hintergrund
 
 * Die Karte basiert auf **OpenStreetMap**
@@ -78,12 +74,7 @@ mobile-jh/
  ├── tools/ 
 ```
 
-Transformation, Konvertierung, Aggregation und Veröffentlichung
 
-
-Hier eine inhaltlich geschärfte und konzeptionell ergänzte Fassung:
-
----
 
 ## 🏕️ Idee
 
