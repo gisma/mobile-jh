@@ -91,7 +91,7 @@ fi
 echo
 echo "STEP 2/4: KMZ → GeoJSON (convert_to_geojson.sh)"
 echo "----------------------------------------"
-bash "${REPO_ROOT}/tools/convert_to_geojson.sh" 
+bash "${REPO_ROOT}/tools/convert_to_geojson.sh"
 
 # ------------------------------
 # STEP 3
@@ -114,7 +114,7 @@ echo "STEP 4/4: GeoJSON → Manifest"
 echo "----------------------------------------"
 
 
-python3 "${SCRIPT_DIR}/tools/build_manifest.py"
+python3 "${SCRIPT_DIR}/build_manifest.py"
 
 
 
