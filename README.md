@@ -46,12 +46,20 @@ Es ist **keine App-Installation nötig**.
 
 ---
 
-## 🛠️ Technischer Hintergrund (kurz & einfach erklärt)
+Hier die zusammengeführte, klare und einfache Fassung:
+
+---
+
+## 🛠️ Technischer Hintergrund
 
 * Die Karte basiert auf **OpenStreetMap**
-* Die Umgebungspunkte stammen aus offenen Geodaten
-* Daten werden nur geladen, wenn man sie wirklich braucht
-  → dadurch bleibt die Karte schnell und mobil-freundlich
+* Umgebungspunkte stammen aus **offenen Geodaten**
+* Daten werden im **GeoJSON-Format** bereitgestellt
+* Das Frontend nutzt **Leaflet** mit **MarkerCluster**
+* POIs werden per **Lazy Loading** pro Jugendherberge nachgeladen
+  → dadurch bleibt die Karte performant und mobil-freundlich
+* Die Verarbeitung erfolgt in einer modularen Pipeline (R, GDAL, Python, Shell) mit klarer Trennung von Datenaufbereitung, Konvertierung, Aggregation und Veröffentlichung
+* Die Anwendung ist vollständig **GitHub Pages kompatibel** (statisches Hosting)
 
 Es werden **keine persönlichen Daten gesammelt**.
 
@@ -70,23 +78,19 @@ mobile-jh/
  ├── tools/ 
 ```
 
----
+Transformation, Konvertierung, Aggregation und Veröffentlichung
 
-## 🧑‍💻 Hintergrund
 
-Frontend auf Basis von Leaflet mit MarkerCluster
-
-Datenbereitstellung im GeoJSON-Format
-
-Lazy Loading der POI-Daten pro Jugendherberge zur Reduktion der initialen Datenmenge
-
-Vollständig GitHub Pages kompatibel (statisches Hosting)
-
-Umsetzung als modulare, gemischte Pipeline (R, GDAL, Python, Shell) zur klaren Trennung von Transformation, Konvertierung, Aggregation und Veröffentlichung
+Hier eine inhaltlich geschärfte und konzeptionell ergänzte Fassung:
 
 ---
 
-## ❤️ Idee
+## 🏕️ Idee
 
-Die Karte soll Familien helfen, Aufenthalte bei Jugendherbergen besser zu planen – mit einem schnellen Überblick über Bildungs-, Natur- und Freizeitangebote in der Nähe.
+Die Karte soll Familien bei der Planung von Aufenthalten in Jugendherbergen unterstützen, indem sie einen strukturierten Überblick über Bildungs-, Natur- und Freizeitangebote in der näheren Umgebung bietet.
+
+Konzeptionell basiert die Anwendung auf einer räumlichen Pufferlogik:
+Für jede Jugendherberge wird ein definierter Umkreis (Buffer) gebildet, innerhalb dessen relevante Punkte aus offenen Geodaten extrahiert und kategorisiert werden. Dadurch entsteht kein beliebiges Sammelsurium an POIs, sondern eine systematisch abgegrenzte, vergleichbare Umgebungsperspektive.
+
+Ziel ist es, die lokale Angebotsstruktur transparent zu machen – nicht durch Vollständigkeit, sondern durch eine konsistente, reproduzierbare räumliche Auswahl.
 
